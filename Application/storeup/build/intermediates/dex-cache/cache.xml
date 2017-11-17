@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\ba92d4aaa2a4f62cc9e199f5f584cd01cdeeddf1\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="6addaba208e21c6da776d0ca75b6b23a6ccd5499">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_55952cc54db2c6785b51a66fc4a60afa6a574001.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\edbaa7fb437bf9a80929f200b001d69f34aa1c50\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_577e66b854854491b31ffa94e860525390262e07.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\Documents\Store-Up\Application\storeup\app\libs\volley.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\volley_4006f48c10a1042fdb861fad0302874f97edfc0c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\498ce56b7bb85e95614dbf4bafb7eddf8e2bd8c5\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="18d31838aa4fcc768a8a0516e22cc13b94655d89">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_102ae768ea721676a06a6dd3cb3a1c2420a865c8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\606af443860d01c2a130dfed7f159b89b45580ba\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="09cf6aa1390f95157e8295d02be7868f568825fc">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_f92fc7288c252c9342a6e0f4a71051e042a50701.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\ed75b528ae0ecba1863d23cdb732878a4150606f\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="952944218ecedea1554a513dec0c14d570642843">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_20d62b0567f9b3e8cec0b5fa2838fc8b31a34340.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\13ae7aaa31d4e6c838015d2dca5d8a8474df494e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="fcd01fd11233459f546c437ec927e9b61bf7caf1">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_6e2efdc3cd841f70d2b8bba40b63e9931302fa34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\51aeab54a6618ac989c3031bb947f05bb4fb6a66\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="2e92aa0163544a804a0b34f169ca61801770839a">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_0d130cf271bc229b80d6aaf1c9d8f1ad2b7ae076.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\7516ca43c7eab100425d90299e76ddf58fab8a43\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="c4f45092eee6cdf1a5dbd597b2b6819be652ce2e">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_26327520a4da844d5fa97830fdd12714684ae079.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\d41cd20b98dc5fc2f10fff8ca2ee43d46fdae64c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="88246166d5afb106f532f6e6deae683c66b42c89">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_107f54b2f20d47757c5b4590ecabe3587d35e8f2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\d9de6861cba229346f3f4f01ea1eff8c4ac18af1\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="8df0e365e40beb151bc42dee20817721a6cab7b0">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_31208780c199f74d8a984ef3d3e0b7b0e3bb6963.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\4bd83f6c067a9a3bbd6463452917b095c97c5a85\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="6a022bf00ccd0948a8180c505e8e458bbddd43a6">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_bc86d10692e0562e08d3bb832848d43bb5faa1f5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\d8fa1f3f82613df0242602255f95adbaf7f3d46f\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_3f61a04d09db3dd640f31ad56097c5bd9ee33a56.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\5a91a93a0f66ecfc8739a9c0ca7c4603730f8be9\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="6116e0e7069de7fc259aac8e08b84f32c2038231">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_2108d3de43aaf8fe4722c9b3285d6de67cb999e6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\constraint-layout-solver-1.0.2_88bba3751c354363d1f2fd832cfcd9b8c2ce121f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\e858b91f69b195edb4a10bcb3bf9758789da4822\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="433f4d6aa5f21f19552afe0e6c5eff0fedba73ad">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_f50da7e3abae1db0dc62e308f42da58bcd476d57.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\3cb70c5f4493b5dfe94bf6515e8c1585978f798e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="9935891f23923f39d002087085d9696568a9f657">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_f5c4fdd6c562d19b880867554157ab9c70dbd84c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\51e9ac031383b535f99724ad2f1abbf4cd3e39fe\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="dd39827d2067497e60e21da48a7926000b6d4b0c">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_32d4ff3a2ed7296a69224ad6f77eeba795c371a9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\bc641f14515d77d34a3bd5edf813b4e9eb6383d6\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_94c4dff2b4e61607fdf9a7b93f3ff907562acb30.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\f137933c82d772168df5a33603ae13bfce80d92e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="eb0d830e3eabb9deb9ec44869cf7ac7ea1ad794c">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_70faf0db54db9808804dc0b1531d4ad749763add.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\2ef31229ddfc1c36878514a078d5cb47e7a7e08e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="9cca2818594cc5348806d6662133491e7ea0fa8d">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_0b86bcfcd8fca74d9d06e895639f9d5a38ab922b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\85110368b641e3114a3a274eb737ce7128277911\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="756f6297eef79784f5e356dcd4f39865028b2bd0">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_fd9a011defa795fcc73aaf4f4e819347fca84e14.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\d58f2deb3ea8e7a56f050bef3b31a4cb6e588f9e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="cddcd0fb93bc70e27325f2f715b2710332004ebb">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_aaea1cc5b7d1dc9abe13acde8fc7feb31bba6e97.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\dc80be985047e66e91580e0c7de0cf208387fb1e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="25438f55fc6d906a0e72f30b21487541430ede43">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_a2dc34642559dc4c54ab992857d2c4ab0b1f725b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\26.0.0-alpha1\support-annotations-26.0.0-alpha1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="023ee503b631f69511e335a061ea008f8da60f40">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\support-annotations-26.0.0-alpha1_b43f9339df541bfba91cb6964dc9b75d7dd8defc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\smith\.android\build-cache\4f62dfbbf73684364cc7533f583fedae48bec0cd\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="486371f97baad8e607f332f20fee1d3dd00a731a">
+        <dex dex="C:\Users\smith\Documents\Store-Up\Application\storeup\app\build\intermediates\pre-dexed\debug\classes_9ec914a910e100fd26daf6c16fe97be4fafabf10.jar" />
+    </item>
+
+</items>
