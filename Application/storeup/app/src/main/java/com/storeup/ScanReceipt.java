@@ -1,19 +1,22 @@
 package com.storeup;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,8 +48,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class ScanImageActivity extends AppCompatActivity implements View.OnClickListener{
+import static android.app.Activity.RESULT_OK;
 
+/**
+ * Created by Krishna.R.K on 11/18/2017.
+ */
+
+public class ScanReceipt extends Fragment implements View.OnClickListener{
     TextView test;
     String s;
     private static String KEY_SUCCESS = "success";
@@ -63,27 +71,36 @@ public class ScanImageActivity extends AppCompatActivity implements View.OnClick
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private StorageReference uploadRef;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_scan_image);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.user_scanreceipt_fragment,container, false);
+    }
 
-        buttonUpload = (Button) findViewById(R.id.buttonUpload);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        imageView = (ImageView) findViewById(R.id.imageView);
+        super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("Scan Receipt");
+
+        buttonUpload = (Button)getView().findViewById(R.id.buttonUpload);
+
+        imageView = (ImageView)getView().findViewById(R.id.imageView);
 
 
         //attaching listener
         buttonUpload.setOnClickListener(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectImage();
             }
         });
+
     }
+
 
     @Override
     public void onClick(View view) {
@@ -95,7 +112,7 @@ public class ScanImageActivity extends AppCompatActivity implements View.OnClick
     private void selectImage() {
         final CharSequence[] items = { "Take Photo", "Choose from Library",
                 "Cancel" };
-        AlertDialog.Builder builder = new AlertDialog.Builder(ScanImageActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Upload your Receipt!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
@@ -150,7 +167,7 @@ public class ScanImageActivity extends AppCompatActivity implements View.OnClick
         if (data != null) {
             filePath = data.getData();
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), filePath);
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -183,18 +200,18 @@ public class ScanImageActivity extends AppCompatActivity implements View.OnClick
     private void uploadFile() {
         if (filePath != null) {
 
-            final ProgressDialog progressDialog = new ProgressDialog(this);
+            final ProgressDialog progressDialog = new ProgressDialog(getActivity());
             progressDialog.setTitle("Uploading");
             progressDialog.show();
             final String[] arr = filePath.toString().split("/");
             if(UPLOAD_FLAG == 1) {
                 uploadRef = storageReference.child("images/" + arr[arr.length - 1]);
-                Toast.makeText(getApplicationContext(), "Storage Uri: " + arr[arr.length - 1], Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Storage Uri: " + arr[arr.length - 1], Toast.LENGTH_LONG).show();
             } else if (UPLOAD_FLAG == 0) {
                 Random random = new Random();
                 int key =random.nextInt(1000);
                 uploadRef = storageReference.child("pictures/" + "pic" + key + ".jpg");
-                Toast.makeText(getApplicationContext(), "Storage Uri: " + "pic" + key, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Storage Uri: " + "pic" + key, Toast.LENGTH_LONG).show();
             }
             uploadRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -205,7 +222,7 @@ public class ScanImageActivity extends AppCompatActivity implements View.OnClick
 
                             //and displaying a success toast
                             @SuppressWarnings("VisibleForTests")StorageReference downloadUri = taskSnapshot.getStorage();
-                            Toast.makeText(getApplicationContext(), "File Uploaded "+downloadUri.toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity().getApplicationContext(), "File Uploaded "+downloadUri.toString(), Toast.LENGTH_LONG).show();
 
 
 
@@ -217,14 +234,14 @@ public class ScanImageActivity extends AppCompatActivity implements View.OnClick
                                                 if (response.getString(KEY_SUCCESS) != null) {
                                                     int success = Integer.parseInt(response.getString(KEY_SUCCESS));
                                                     if (success == 1) {
-                                                        Toast.makeText(getApplicationContext(), R.string.registered, Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(getActivity().getApplicationContext(), R.string.registered, Toast.LENGTH_LONG).show();
 
                                                     } else if (success == 0) {
-                                                        Toast.makeText(getApplicationContext(), R.string.email_exists, Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(getActivity().getApplicationContext(), R.string.email_exists, Toast.LENGTH_LONG).show();
                                                     }else if (success == 2) {
-                                                        Toast.makeText(getApplicationContext(), R.string.username_exists, Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(getActivity().getApplicationContext(), R.string.username_exists, Toast.LENGTH_LONG).show();
                                                     }else {
-                                                        Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
                                                     }
                                                 }
                                             } catch (JSONException e) {
@@ -236,7 +253,7 @@ public class ScanImageActivity extends AppCompatActivity implements View.OnClick
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
                                     Log.d("Response Error", error.toString());
-                                    Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
                                 }
                             }) {
 
@@ -263,7 +280,7 @@ public class ScanImageActivity extends AppCompatActivity implements View.OnClick
                                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-                            VolleyController.getInstance(getApplicationContext()).addToRequestQueue(rq);
+                            VolleyController.getInstance(getActivity().getApplicationContext()).addToRequestQueue(rq);
 
 
 
@@ -277,7 +294,7 @@ public class ScanImageActivity extends AppCompatActivity implements View.OnClick
                             progressDialog.dismiss();
 
                             //and displaying error message
-                            Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity().getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -292,7 +309,7 @@ public class ScanImageActivity extends AppCompatActivity implements View.OnClick
                     });
         }
         else {
-            Toast.makeText(getApplicationContext(), "Please select a file to upload", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Please select a file to upload", Toast.LENGTH_LONG).show();
         }
     }
 }

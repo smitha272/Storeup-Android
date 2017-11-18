@@ -3,9 +3,10 @@ var mysql = require('mysql'),
 module.exports = function () {
     if(!db) {
         db = mysql.createConnection({
-            host:       "localhost",
-            user:       "root",
-            password:   "1234",
+            host:       "cmpe275.cgy1wsewzyvd.us-west-1.rds.amazonaws.com",
+            port: "3306",
+            user:       "krishnark1993",
+            password:   "krishna1993",
             database:   "storeup"
         });
     };
