@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        displaySelectedNavScreen(R.id.scan_receipts);
     }
 
     @Override
@@ -105,47 +107,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void displaySelectedNavScreen(int id) {
-        Fragment fragment = null;
-        switch (id) {
-            case R.id.user_profile:
-                Intent userProfile = new Intent(MainActivity.this, nav_userProfile.class);
-                //fragment = new UserProfile();
-                getUserDetails();
-                startActivity(userProfile);
-                break;
-            case R.id.user_receipts:
-                Intent userReceipts = new Intent(MainActivity.this, nav_userReceipts.class);
-                startActivity(userReceipts);
-                //fragment = new UserReceipts();
-                break;
-            case R.id.user_coupons:
-                Intent userCoupons = new Intent(MainActivity.this, nav_userCoupons.class);
-                startActivity(userCoupons);
-                //fragment = new UserCoupons();
-                break;
-            case R.id.faqs:
-                Intent faqs = new Intent(MainActivity.this, nav_faqs.class);
-                startActivity(faqs);
-                //fragment = new Faqs();
-                break;
-            case R.id.scan_receipts:
-                Intent i = new Intent(MainActivity.this, ScanImageActivity.class);
-                startActivity(i);
-                break;
-            case R.id.user_signout:
-                appSessionManager.logoutUser();
-        }
-        /*if(fragment != null) {
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
 
-            ft.replace(R.id.content_main, fragment);
-            ft.commit();
-        }*/
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-    }
 
     private void getUserDetails() {
         String email = appSessionManager.getKeyEmail();
@@ -192,6 +154,71 @@ public class MainActivity extends AppCompatActivity
         VolleyController.getInstance(getApplicationContext()).addToRequestQueue(req);
 
         Toast.makeText(getApplicationContext(),URL, Toast.LENGTH_LONG).show();
+    }
+
+
+    private void displaySelectedNavScreen(int id) {
+        Fragment fragment = null;
+        switch (id) {
+            /*case R.id.user_profile:
+                Intent userProfile = new Intent(MainActivity.this, nav_userProfile.class);
+                //fragment = new UserProfile();
+                getUserDetails();
+                startActivity(userProfile);
+                break;
+            case R.id.user_receipts:
+                Intent userReceipts = new Intent(MainActivity.this, nav_userReceipts.class);
+                startActivity(userReceipts);
+                //fragment = new UserReceipts();
+                break;
+            case R.id.user_coupons:
+                Intent userCoupons = new Intent(MainActivity.this, nav_userCoupons.class);
+                startActivity(userCoupons);
+                //fragment = new UserCoupons();
+                break;
+            case R.id.faqs:
+                Intent faqs = new Intent(MainActivity.this, nav_faqs.class);
+                startActivity(faqs);
+                //fragment = new Faqs();
+                break;
+            case R.id.scan_receipts:
+                Intent i = new Intent(MainActivity.this, ScanImageActivity.class);
+                startActivity(i);
+                break;
+            case R.id.user_signout:
+                appSessionManager.logoutUser();*/
+            case R.id.user_profile:
+                fragment = new UserProfile();
+                getUserDetails();
+                break;
+            case R.id.user_receipts:
+                fragment = new UserReceipt();
+                break;
+            case R.id.user_coupons:
+
+                fragment = new UserCoupon();
+                break;
+            /*case R.id.faqs:
+                Intent faqs = new Intent(MainActivity.this, nav_faqs.class);
+                startActivity(faqs);
+                //fragment = new Faqs();
+                break;*/
+            case R.id.scan_receipts:
+                fragment = new ScanReceipt();
+                break;
+            case R.id.user_signout:
+                appSessionManager.logoutUser();
+
+        }
+        if(fragment != null) {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+//            ft.remove(fragment);
+            ft.replace(R.id.content_main, fragment);
+            ft.commit();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
