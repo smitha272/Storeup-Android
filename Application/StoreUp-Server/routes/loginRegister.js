@@ -22,7 +22,7 @@ router.post('/login', function(req, res, next) {
         if (err) throw err;
 
         if (rows.length > 0) {
-            res.json({success: "1", username: rows[0].user_name, message: "user logged in"});
+            res.json({success: "1", username: rows[0].user_name, message: "user logged in", data:rows[0]});
         }else {
             res.json({success: "0", message: "invalid email or password"});
         }

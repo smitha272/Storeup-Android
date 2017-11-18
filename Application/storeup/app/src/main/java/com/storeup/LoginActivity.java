@@ -70,18 +70,23 @@ public class LoginActivity extends AppCompatActivity {
                                         if (response.getString(KEY_SUCCESS) != null) {
                                             int success = Integer.parseInt(response.getString(KEY_SUCCESS));
                                             if (success == 1) {
+                                                System.out.println("\n\nUser id:"+response.getJSONObject("data").getString("user_id")+"\n\n");
+                                                Toast.makeText(getApplicationContext(),response.getJSONObject("data").getString("user_id"), Toast.LENGTH_LONG);
                                                 appSessionManager=new AppSessionManager(getApplicationContext());
+
                                                 appSessionManager.createLoginSession(et_email.getText().toString());
                                                 //Intent home = new Intent(LoginActivity.this,LoginActivity.class);
                                                 Intent home = new Intent(LoginActivity.this, MainActivity.class);
+                                                appSessionManager.createUserIdSession(response.getJSONObject("data").getString("user_id"));
                                                 appSessionManager.createUserSession(response.getString(KEY_USERID).toString());
+
                                                 //home.putExtra(KEY_USERID, response.getString(KEY_USERID));
                                                 startActivity(home);
                                                 finish();
                                             } else if (success == 0) {
-                                                Toast.makeText(getApplicationContext(), R.string.invalid_login, Toast.LENGTH_LONG).show();
+                                                //Toast.makeText(getApplicationContext(), R.string.invalid_login, Toast.LENGTH_LONG).show();
                                             } else {
-                                                Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                                                //Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     } catch (JSONException e) {

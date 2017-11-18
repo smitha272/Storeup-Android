@@ -132,7 +132,7 @@ router.post('/getImageOcr', function(req, res, next) {
             address: addr
         },function (err,response) {
             if(!err){
-                console.log(response.json.results[0].address_components);
+                console.log("The address is: "+JSON.stringify(response.json.results[0].address_components));
             }
         });
 

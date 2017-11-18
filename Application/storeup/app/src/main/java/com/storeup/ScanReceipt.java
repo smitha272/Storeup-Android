@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -70,6 +71,7 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
     private Uri filePath;
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private StorageReference uploadRef;
+    AppSessionManager appSessionManager;
 
     @Nullable
     @Override
@@ -196,7 +198,7 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
         data.putExtra(MediaStore.EXTRA_OUTPUT, filePath);
         imageView.setImageBitmap(thumbnail);
     }
-
+    String imageName ="";
     private void uploadFile() {
         if (filePath != null) {
 
@@ -204,13 +206,14 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
             progressDialog.setTitle("Uploading");
             progressDialog.show();
             final String[] arr = filePath.toString().split("/");
+            imageName = UUID.randomUUID().toString();
             if(UPLOAD_FLAG == 1) {
-                uploadRef = storageReference.child("images/" + arr[arr.length - 1]);
+                uploadRef = storageReference.child("images/" + imageName);
                 Toast.makeText(getActivity().getApplicationContext(), "Storage Uri: " + arr[arr.length - 1], Toast.LENGTH_LONG).show();
             } else if (UPLOAD_FLAG == 0) {
                 Random random = new Random();
                 int key =random.nextInt(1000);
-                uploadRef = storageReference.child("pictures/" + "pic" + key + ".jpg");
+                uploadRef = storageReference.child("images/" +imageName );
                 Toast.makeText(getActivity().getApplicationContext(), "Storage Uri: " + "pic" + key, Toast.LENGTH_LONG).show();
             }
             uploadRef.putFile(filePath)
@@ -269,8 +272,9 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
                                 protected Map<String, String> getParams() {
                                     Map<String, String> params = new HashMap<>();
                                     params.put("tag", "register");
-                                    params.put("email", "sdkjflslkdfksalj");
-                                    params.put("StorageReference",arr[arr.length-1]);
+                                    params.put("email", appSessionManager.getUserName());
+                                    params.put("StorageReference",imageName);
+                                    params.put("userId",appSessionManager.getUserId());
                                     return params;
                                 }
 

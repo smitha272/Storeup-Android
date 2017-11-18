@@ -13,6 +13,7 @@ public class AppSessionManager {
     private static final String IS_LOGIN = "IsLoggedIn";
     public static final String KEY_EMAIL = "email";
     public static final String USER_NAME = "";
+    public static final String USER_ID = "";
     Context _context;
 
     public AppSessionManager(Context context){
@@ -32,8 +33,16 @@ public class AppSessionManager {
         editor.commit();
     }
 
+    public void createUserIdSession(String uId){
+        editor.putString(USER_ID,uId);
+    }
+
     public String getUserName(){
         return sharedPref.getString(USER_NAME,null);
+    }
+
+    public String getUserId(){
+        return sharedPref.getString(USER_ID,null);
     }
 
     public String getKeyEmail() {
