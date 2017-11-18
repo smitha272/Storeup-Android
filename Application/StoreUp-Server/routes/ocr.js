@@ -24,6 +24,8 @@ var googleMapsClient = require('@google/maps').createClient({
 
 router.post('/getImageOcr', function(req, res, next) {
     var StorageReference = req.body.StorageReference;
+    var userid = req.body.userId;
+    var email = req.body.email
 
    console.log(StorageReference);
 
@@ -127,6 +129,12 @@ router.post('/getImageOcr', function(req, res, next) {
          console.log("Store Name is :"+logo+" and the address is:"+address);*/
         var addr = logo+" "+address;
         console.log(addr);
+
+        db.query('INSERT into receipt_details VALUES(?,?,?,?,?)', [0, userid, email, StorageReference, address], function (err, result) {
+            if (err) throw err;
+            res.json({success: "1", userID: userid, message: "data stored successfully"});
+            console.log(result.insertId);
+        })
 
         googleMapsClient.geocode({
             address: addr

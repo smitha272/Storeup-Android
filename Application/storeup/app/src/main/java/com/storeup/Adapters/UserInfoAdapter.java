@@ -27,8 +27,8 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoHolder>{
     @Override
     public UserInfoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         UserInfoHolder viewHolder = null;
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_profile_view, parent, false);
-        viewHolder = new UserInfoHolder(layoutView, userProfileData);
+//        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_profile_view, parent, false);
+//        viewHolder = new UserInfoHolder(layoutView, userProfileData);
         return viewHolder;
     }
 

@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity
     private void getUserDetails() {
         String email = appSessionManager.getKeyEmail();
         final String URL = "http://10.0.2.2:3000/users/userDetails" + "?email=" + email;
-        userRecyclerView = (RecyclerView) findViewById(R.id.profile_list);
+//        userRecyclerView = (RecyclerView) findViewById(R.id.profile_list);
         // pass second argument as "null" for GET requests
 
         CustomJSONObjectRequest req = new CustomJSONObjectRequest(URL, null,
