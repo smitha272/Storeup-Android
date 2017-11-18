@@ -94,6 +94,9 @@ public class nav_faqs extends AppCompatActivity
                 Intent i = new Intent(nav_faqs.this, ScanImageActivity.class);
                 startActivity(i);
                 break;
+            case R.id.user_signout:
+                AppSessionManager appSessionManager=new AppSessionManager(getApplicationContext());
+                appSessionManager.logoutUser();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

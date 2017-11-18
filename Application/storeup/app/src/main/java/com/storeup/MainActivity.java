@@ -133,6 +133,8 @@ public class MainActivity extends AppCompatActivity
                 Intent i = new Intent(MainActivity.this, ScanImageActivity.class);
                 startActivity(i);
                 break;
+            case R.id.user_signout:
+                appSessionManager.logoutUser();
         }
         /*if(fragment != null) {
             FragmentTransaction ft = getFragmentManager().beginTransaction();

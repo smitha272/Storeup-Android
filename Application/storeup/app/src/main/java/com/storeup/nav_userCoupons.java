@@ -97,6 +97,9 @@ public class nav_userCoupons extends AppCompatActivity
                 Intent i = new Intent(nav_userCoupons.this, ScanImageActivity.class);
                 startActivity(i);
                 break;
+            case R.id.user_signout:
+                AppSessionManager appSessionManager=new AppSessionManager(getApplicationContext());
+                appSessionManager.logoutUser();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
