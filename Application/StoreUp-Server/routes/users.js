@@ -21,4 +21,21 @@ router.get('/userDetails', function(req, res, next) {
 
 });
 
+router.get('/userReceipts', function (req, res, next) {
+    var email = req.query.email;
+    console.log(email)
+    console.log("Hello email")
+
+    db.query('SELECT * from receipt_details where user_name = ?', [email], function (err, rows, fields) {
+        if (err) throw err;
+
+
+        if (rows.length > 0) {
+            res.json({success: "1", receipts: rows, message: "user details retrieved"});
+        }else {
+            res.json({success: "0", message: "error retrieving user details"});
+        }
+    })
+})
+
 module.exports = router;
