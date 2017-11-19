@@ -3,6 +3,7 @@ package com.storeup;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +46,13 @@ public class UserProfile extends Fragment {
         getActivity().setTitle("User Profile");
 
         appSessionManager=new AppSessionManager(getActivity().getApplicationContext());
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         userRecyclerView = (RecyclerView) getView().findViewById(R.id.profile_list);
+        userRecyclerView.setLayoutManager(layoutManager);
+        userRecyclerView.setHasFixedSize(true);
+
+
         completeUserData = new ArrayList<UserProfileData>();
 
         getUserDetails();
