@@ -85,6 +85,8 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Scan Receipt");
 
+        appSessionManager=new AppSessionManager(getActivity().getApplicationContext());
+
         buttonUpload = (Button)getView().findViewById(R.id.buttonUpload);
 
         imageView = (ImageView)getView().findViewById(R.id.imageView);
@@ -202,6 +204,9 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
     private void uploadFile() {
         if (filePath != null) {
 
+            final String email =appSessionManager.getKeyEmail();
+            final String userId = appSessionManager.getUserId();
+
             final ProgressDialog progressDialog = new ProgressDialog(getActivity());
             progressDialog.setTitle("Uploading");
             progressDialog.show();
@@ -272,9 +277,9 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
                                 protected Map<String, String> getParams() {
                                     Map<String, String> params = new HashMap<>();
                                     params.put("tag", "register");
-                                    params.put("email", appSessionManager.getUserName());
+                                    params.put("email", email);
                                     params.put("StorageReference",imageName);
-                                    params.put("userId",appSessionManager.getUserId());
+                                    params.put("userId",userId);
                                     return params;
                                 }
 

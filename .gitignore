@@ -11,3 +11,4 @@ Application/storeup/app/app.iml
 Application/storeup/build/generated/
 Application/storeup/build/outputs/apk/app-debug.apk
 Application/storeup/build/intermediates/dex-cache/cache.xml
+Application/storeup/app/build/outputs/logs/manifest-merger-debug-report.txt
