@@ -13,7 +13,7 @@ router.get('/userDetails', function(req, res, next) {
 
 
         if (rows.length > 0) {
-            res.json({success: "1", username: rows[0], message: "user details retrieved"});
+            res.json({success: "1", user_details: rows[0], message: "user details retrieved"});
         }else {
             res.json({success: "0", message: "error retrieving user details"});
         }
