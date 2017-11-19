@@ -25,6 +25,6 @@ public class UserInfoHolder extends RecyclerView.ViewHolder {
         userName = (TextView) itemView.findViewById(R.id.username);
         userPass = (TextView)itemView.findViewById(R.id.userpassword);
         userAddress = (TextView) itemView.findViewById(R.id.useraddress);
-        userPhone = (TextView) itemView.findViewById(R.id.useraddress);
+        userPhone = (TextView) itemView.findViewById(R.id.phone);
     }
 }

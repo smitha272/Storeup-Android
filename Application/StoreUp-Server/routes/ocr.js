@@ -26,10 +26,10 @@ router.post('/getImageOcr', function(req, res, next) {
     var StorageReference = req.body.StorageReference;
     var userid = req.body.userId;
     var email = req.body.email
+    var downloadUrl = req.body.downloadUrl;
+   console.log(downloadUrl);
 
-   console.log(StorageReference);
-
-    var gcsImageUri = 'gs://storeup-7952a.appspot.com/images/'+StorageReference;
+    var gcsImageUri = 'gs://storeup-7952a.appspot.com/images/c3c4783b-2ef6-4a69-8d95-d404cf110b85'/*+StorageReference*/;
     var source = {
         gcsImageUri : gcsImageUri
     };
@@ -130,7 +130,7 @@ router.post('/getImageOcr', function(req, res, next) {
         var addr = logo+" "+address;
         console.log(addr);
 
-        db.query('INSERT into receipt_details VALUES(?,?,?,?,?)', [0, userid, email, StorageReference, address], function (err, result) {
+        db.query('INSERT into receipt_details VALUES(?,?,?,?,?,?)', [0, userid, email, StorageReference, address, downloadUrl], function (err, result) {
             if (err) throw err;
             res.json({success: "1", userID: userid, message: "data stored successfully"});
             console.log(result.insertId);

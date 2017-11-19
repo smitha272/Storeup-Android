@@ -230,6 +230,7 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
 
                             //and displaying a success toast
                             @SuppressWarnings("VisibleForTests")StorageReference downloadUri = taskSnapshot.getStorage();
+                            @SuppressWarnings("VisibleForTests")final String downloadUrl = taskSnapshot.getDownloadUrl().toString();
                             Toast.makeText(getActivity().getApplicationContext(), "File Uploaded "+downloadUri.toString(), Toast.LENGTH_LONG).show();
 
 
@@ -280,6 +281,7 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
                                     params.put("email", email);
                                     params.put("StorageReference",imageName);
                                     params.put("userId",userId);
+                                    params.put("downloadUrl",downloadUrl);
                                     return params;
                                 }
 
