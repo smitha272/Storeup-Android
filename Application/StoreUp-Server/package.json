@@ -20,6 +20,8 @@
     "gcloud": "^0.37.2",
     "google-cloud": "^0.57.0",
     "jade": "^1.11.0",
+    "google-distance": "^1.0.1",
+    "google-distance-matrix": "^1.0.0",
     "json": "^9.0.6",
     "mongodb": "2.2.19",
     "morgan": "~1.8.1",

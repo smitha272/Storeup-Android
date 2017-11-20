@@ -17,17 +17,25 @@ var gcloud = vision({
     keyFilename: '../ServiceAccountKey/StoreUp-6dfe8732b53c.json'
 });
 
+/*var distance = require('google-distance-matrix');*/
+
+var distance = require('google-distance');
+distance.apiKey = 'AIzaSyAqqJKFP-CkHrHIPZa06G0bsKVGbat52Cw';
 
 var googleMapsClient = require('@google/maps').createClient({
     key:'AIzaSyCLwIbvlz-UN3Z-E5nUgolJGCPLwnhcnHo'
 });
+
+/*distance.key('AIzaSyC6ezAD_4Buxvhc45mgz4Zi_LrF3ucN594');*/
+
 
 router.post('/getImageOcr', function(req, res, next) {
     var StorageReference = req.body.StorageReference;
     var userid = req.body.userId;
     var email = req.body.email
     var downloadUrl = req.body.downloadUrl;
-   console.log(downloadUrl);
+    var user_address = req.body.address;
+   console.log(user_address);
 
     var gcsImageUri = 'gs://storeup-7952a.appspot.com/images/c3c4783b-2ef6-4a69-8d95-d404cf110b85'/*+StorageReference*/;
     var source = {
@@ -129,20 +137,63 @@ router.post('/getImageOcr', function(req, res, next) {
          console.log("Store Name is :"+logo+" and the address is:"+address);*/
         var addr = logo+" "+address;
         console.log(addr);
-
-        db.query('INSERT into receipt_details VALUES(?,?,?,?,?,?)', [0, userid, email, StorageReference, address, downloadUrl], function (err, result) {
+        var mail;
+        var useraddr;
+        db.query('INSERT into receipt_details VALUES(?,?,?,?,?,?,?)', [0, userid, email, StorageReference, address, downloadUrl,0], function (err, result) {
             if (err) throw err;
-            res.json({success: "1", userID: userid, message: "data stored successfully"});
+            //console.log("The data is"+JSON.stringify(result));
+            //res.json({success: "1", userID: userid, message: "data stored successfully"});
+            db.query('select * from user_details where email = ?',[email],function(err, rows, fields) {
+                if (err) throw err;
+
+                if (rows.length > 0) {
+                    mail = rows[0].email;
+                    useraddr = rows[0].street+" "+rows[0].city;
+
+                    googleMapsClient.geocode({
+                        address: addr
+                    },function (err,response) {
+                        if(!err){
+                            if(response){
+                                console.log("The address is: "+JSON.stringify(response.json.results[0].address_components));
+                                var origins = useraddr;
+                                var destination = addr;
+                                distance.get(
+                                    {
+                                        origin: origins,
+                                        destination: destination,
+                                        mode: 'car',
+                                        units: 'imperial'
+                                    },
+                                    function(err, data) {
+                                        if (err) return console.log(err);
+                                        if(data){
+                                            console.log(data.distance);
+                                            var distanceTravelled = data.distance;
+                                            db.query('update receipt_details set distance_traveled_by_user = ? where user_name = ? and url = ?',[distanceTravelled, email, StorageReference], function (err,result){
+                                                if(err)throw err;
+                                                console.log("updated successfuly");
+                                            })
+                                        }
+                                    });
+
+                            }else{
+                                console.log("No such address");
+                            }
+                        }
+                    });
+
+                }else {
+
+                }
+            })
             console.log(result.insertId);
         })
 
-        googleMapsClient.geocode({
-            address: addr
-        },function (err,response) {
-            if(!err){
-                console.log("The address is: "+JSON.stringify(response.json.results[0].address_components));
-            }
-        });
+
+
+
+
 
 
 
@@ -150,7 +201,6 @@ router.post('/getImageOcr', function(req, res, next) {
     }).catch(function(err) {
         console.error(err);
     });
-
 
 });
 module.exports=router;
