@@ -143,6 +143,7 @@ router.post('/getImageOcr', function(req, res, next) {
             if (err) throw err;
             //console.log("The data is"+JSON.stringify(result));
             //res.json({success: "1", userID: userid, message: "data stored successfully"});
+
             db.query('select * from user_details where email = ?',[email],function(err, rows, fields) {
                 if (err) throw err;
 
