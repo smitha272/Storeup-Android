@@ -37,7 +37,7 @@ router.post('/getImageOcr', function(req, res, next) {
     var user_address = req.body.address;
    console.log(user_address);
 
-    var gcsImageUri = 'gs://storeup-7952a.appspot.com/images/c3c4783b-2ef6-4a69-8d95-d404cf110b85'/*+StorageReference*/;
+    var gcsImageUri = 'gs://storeup-7952a.appspot.com/images/'+StorageReference;
     var source = {
         gcsImageUri : gcsImageUri
     };
@@ -139,7 +139,7 @@ router.post('/getImageOcr', function(req, res, next) {
         console.log(addr);
         var mail;
         var useraddr;
-        db.query('INSERT into receipt_details VALUES(?,?,?,?,?,?,?)', [0, userid, email, StorageReference, address, downloadUrl,0], function (err, result) {
+        db.query('INSERT into receipt_details VALUES(?,?,?,?,?,?,?,?)', [0, userid, email, StorageReference,logo, address, downloadUrl,0], function (err, result) {
             if (err) throw err;
             //console.log("The data is"+JSON.stringify(result));
             //res.json({success: "1", userID: userid, message: "data stored successfully"});
@@ -174,6 +174,7 @@ router.post('/getImageOcr', function(req, res, next) {
                                             db.query('update receipt_details set distance_traveled_by_user = ? where user_name = ? and url = ?',[distanceTravelled, email, StorageReference], function (err,result){
                                                 if(err)throw err;
                                                 console.log("updated successfuly");
+                                                res.json({success: "1", userID: 1, message: "registered"});
                                             })
                                         }
                                     });
