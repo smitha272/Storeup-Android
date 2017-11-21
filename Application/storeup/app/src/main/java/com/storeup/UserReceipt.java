@@ -3,7 +3,6 @@ package com.storeup;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +13,8 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-//import com.storeup.Adapters.UserReceiptAdapter;
-import com.storeup.Entity.UserReceiptData;
+import com.storeup.Adapters.UserReceiptAdapter;
+import com.storeup.Entity.UserReceiptDetails;
 import com.storeup.Extras.CustomJSONObjectRequest;
 import com.storeup.Extras.VolleyController;
 
@@ -24,14 +23,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UserReceipt extends Fragment {
     AppSessionManager appSessionManager;
     private static String KEY_SUCCESS = "success";
-    private RecyclerView userReceiptRecyclerView;
-    //private UserReceiptAdapter userReceiptAdapter;
-    private List<UserReceiptData> completeReceiptData;
 
     private ArrayList<UserReceiptDetails> userReceiptDetailses = new ArrayList<UserReceiptDetails>();
 
@@ -69,7 +64,7 @@ public class UserReceipt extends Fragment {
                                     JSONObject eachReceipt = receiptArray.getJSONObject(i);
                                     userReceiptDetailses.add(new UserReceiptDetails( eachReceipt.getString("store_name"), eachReceipt.getString("store_address"), eachReceipt.getString("download_url")));
                                 }
-                                AndroidFlavorAdapter flavorAdapter = new AndroidFlavorAdapter(getActivity(), userReceiptDetailses);
+                                UserReceiptAdapter flavorAdapter = new UserReceiptAdapter(getActivity(), userReceiptDetailses);
 
                                 // Get a reference to the ListView, and attach the adapter to the listView.
                                 ListView listView = (ListView) getActivity().findViewById(R.id.listview_flavor);
