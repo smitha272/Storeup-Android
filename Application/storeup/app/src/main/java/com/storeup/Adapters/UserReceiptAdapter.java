@@ -34,7 +34,17 @@ public class UserReceiptAdapter extends RecyclerView.Adapter<UserReceiptHolder>{
 
     @Override
     public void onBindViewHolder(final UserReceiptHolder holder, final int position) {
-        new ImageLoader(userReceiptData.get(position).getDownload_url(), holder.scannedImages).execute();
+        System.out.print("Hey");
+        if(userReceiptData.size()>=1 && userReceiptData.get(position).getReceipt_id()!=-1) {
+            System.out.println("size>0");
+            new ImageLoader(userReceiptData.get(position).getDownload_url(), holder.scannedImages).execute();
+            holder.errorText.setVisibility(View.INVISIBLE);
+        }
+        else {
+            System.out.println("size<0");
+            holder.errorText.setText(Html.fromHtml("Sorry you don't have any scanned receipts! Please go to the scan receipts section to scan some."));
+            holder.scannedImages.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

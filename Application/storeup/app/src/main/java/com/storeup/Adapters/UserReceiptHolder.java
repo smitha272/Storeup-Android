@@ -14,8 +14,11 @@ public class UserReceiptHolder extends RecyclerView.ViewHolder {
 
     public ImageView scannedImages;
 
+    public TextView errorText;
+
     public UserReceiptHolder(final View itemView, List<UserReceiptData> receiptData) {
         super(itemView);
         scannedImages = (ImageView) itemView.findViewById(R.id.scannedImages);
+        errorText = (TextView) itemView.findViewById(R.id.errorText);
     }
 }

@@ -67,42 +67,27 @@ public class UserReceipt extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            System.out.print("Comes here");
                             VolleyLog.v("Response:%n %s", response.toString(4));
-                            JSONArray receiptArray = response.getJSONArray("receipts");
-//                            System.out.println("Response Object" + receiptArray.get(0));
-                            JSONObject myreceipt = receiptArray.getJSONObject(0);
-                            System.out.println("Response Object" + receiptArray);
+                            System.out.println("Response Object" + response.getString("success"));
 
-                            for (int i=0;i<receiptArray.length();i++) {
-                                JSONObject eachReceipt = receiptArray.getJSONObject(i);
-                                completeReceiptData.add(new UserReceiptData(eachReceipt.getInt("receipt_id"), eachReceipt.getString("store_name"),eachReceipt.getString("store_address"), eachReceipt.getString("download_url"), eachReceipt.getString("distance_traveled_by_user")));
+                            if(response.getString("success").equals("1")) {
+                                System.out.println("success==1");
+                                JSONArray receiptArray = response.getJSONArray("receipts");
 
+                                for (int i=0;i<receiptArray.length();i++) {
+                                    JSONObject eachReceipt = receiptArray.getJSONObject(i);
+                                    completeReceiptData.add(new UserReceiptData(eachReceipt.getInt("receipt_id"), eachReceipt.getString("store_name"),eachReceipt.getString("store_address"), eachReceipt.getString("download_url"), eachReceipt.getString("distance_traveled_by_user")));
+
+                                    userReceiptAdapter = new UserReceiptAdapter(getActivity(), completeReceiptData);
+                                    userReceiptRecyclerView.setAdapter(userReceiptAdapter);
+                                }
+                            }
+                            else {
+                                System.out.println("success==0");
+                                completeReceiptData.add(new UserReceiptData(-1,"","","",""));
                                 userReceiptAdapter = new UserReceiptAdapter(getActivity(), completeReceiptData);
                                 userReceiptRecyclerView.setAdapter(userReceiptAdapter);
                             }
-
-//                            JSONObject userDetails = new JSONObject();
-//                            userDetails = response.getJSONObject("user_details");
-//                            String user_phone = userDetails.getString("phone_number");
-//                            String user_zip = userDetails.getString("zipcode");
-//
-//                            completeUserData.add(new UserProfileData(user_name, user_pass, user_street, user_city, user_state, user_phone, user_zip));
-//
-//                            userInfoAdapter = new UserInfoAdapter(getActivity(), completeUserData);
-//                            userRecyclerView.setAdapter(userInfoAdapter);
-//
-//                            System.out.println("Response Object" + userDetails.getString("user_id"));
-
-//                            if (response.getString(KEY_SUCCESS) != null) {
-//                                int success = Integer.parseInt(response.getString(KEY_SUCCESS));
-//                                if (success == 1) {
-//                                    Toast.makeText(getActivity().getApplicationContext(), message.toString(), Toast.LENGTH_LONG).show();
-//                                }
-//                                else {
-//                                    Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
-//                                }
-//                            }
                         } catch (JSONException e) {
                             System.out.print("Comes here 1");
                             e.printStackTrace();
