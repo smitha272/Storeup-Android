@@ -16,26 +16,25 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.storeup.Adapters.UserInfoAdapter;
+import com.storeup.Adapters.UserReceiptAdapter;
 import com.storeup.Entity.UserProfileData;
+import com.storeup.Entity.UserReceiptData;
 import com.storeup.Extras.CustomJSONObjectRequest;
 import com.storeup.Extras.VolleyController;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Krishna.R.K on 11/18/2017.
- */
-
 public class UserReceipt extends Fragment {
     AppSessionManager appSessionManager;
     private static String KEY_SUCCESS = "success";
-    private RecyclerView userRecyclerView;
-    private UserInfoAdapter userInfoAdapter;
-    private List<UserProfileData> completeUserData;
+    private RecyclerView userReceiptRecyclerView;
+    private UserReceiptAdapter userReceiptAdapter;
+    private List<UserReceiptData> completeReceiptData;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -50,12 +49,12 @@ public class UserReceipt extends Fragment {
         appSessionManager=new AppSessionManager(getActivity().getApplicationContext());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        userRecyclerView = (RecyclerView) getView().findViewById(R.id.profile_list);
-        userRecyclerView.setLayoutManager(layoutManager);
-        userRecyclerView.setHasFixedSize(true);
+        userReceiptRecyclerView = (RecyclerView) getView().findViewById(R.id.receipt_list);
+        userReceiptRecyclerView.setLayoutManager(layoutManager);
+        userReceiptRecyclerView.setHasFixedSize(true);
 
 
-        completeUserData = new ArrayList<UserProfileData>();
+        completeReceiptData = new ArrayList<UserReceiptData>();
         getUserReceipts();
     }
 
@@ -68,8 +67,21 @@ public class UserReceipt extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            System.out.print("Comes here");
                             VolleyLog.v("Response:%n %s", response.toString(4));
-                            System.out.println("Response Object" + response);
+                            JSONArray receiptArray = response.getJSONArray("receipts");
+//                            System.out.println("Response Object" + receiptArray.get(0));
+                            JSONObject myreceipt = receiptArray.getJSONObject(0);
+                            System.out.println("Response Object" + receiptArray);
+
+                            for (int i=0;i<receiptArray.length();i++) {
+                                JSONObject eachReceipt = receiptArray.getJSONObject(i);
+                                completeReceiptData.add(new UserReceiptData(eachReceipt.getInt("receipt_id"), eachReceipt.getString("store_name"),eachReceipt.getString("store_address"), eachReceipt.getString("download_url"), eachReceipt.getString("distance_traveled_by_user")));
+
+                                userReceiptAdapter = new UserReceiptAdapter(getActivity(), completeReceiptData);
+                                userReceiptRecyclerView.setAdapter(userReceiptAdapter);
+                            }
+
 //                            JSONObject userDetails = new JSONObject();
 //                            userDetails = response.getJSONObject("user_details");
 //                            String user_phone = userDetails.getString("phone_number");
@@ -92,6 +104,7 @@ public class UserReceipt extends Fragment {
 //                                }
 //                            }
                         } catch (JSONException e) {
+                            System.out.print("Comes here 1");
                             e.printStackTrace();
                         }
                     }
