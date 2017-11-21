@@ -169,7 +169,7 @@ router.post('/getImageOcr', function(req, res, next) {
                                     function(err, data) {
                                         if (err) return console.log(err);
                                         if(data){
-                                            console.log(data.distance);
+                                            console.log("distance: " + data.distance);
                                             var distanceTravelled = data.distance;
                                             db.query('update receipt_details set distance_traveled_by_user = ? where user_name = ? and url = ?',[distanceTravelled, email, StorageReference], function (err,result){
                                                 if(err)throw err;

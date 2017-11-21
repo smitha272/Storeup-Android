@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -17,11 +16,9 @@ import com.storeup.Adapters.UserReceiptAdapter;
 import com.storeup.Entity.UserReceiptDetails;
 import com.storeup.Extras.CustomJSONObjectRequest;
 import com.storeup.Extras.VolleyController;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 public class UserReceipt extends Fragment {
@@ -64,15 +61,22 @@ public class UserReceipt extends Fragment {
                                     JSONObject eachReceipt = receiptArray.getJSONObject(i);
                                     userReceiptDetailses.add(new UserReceiptDetails( eachReceipt.getString("store_name"), eachReceipt.getString("store_address"), eachReceipt.getString("download_url")));
                                 }
-                                UserReceiptAdapter flavorAdapter = new UserReceiptAdapter(getActivity(), userReceiptDetailses);
+                                UserReceiptAdapter receiptAdapter = new UserReceiptAdapter(getActivity(), userReceiptDetailses);
 
                                 // Get a reference to the ListView, and attach the adapter to the listView.
                                 ListView listView = (ListView) getActivity().findViewById(R.id.listview_flavor);
-                                listView.setAdapter(flavorAdapter);
+                                listView.setAdapter(receiptAdapter);
+                            }
+                            else {
+                                userReceiptDetailses.add(new UserReceiptDetails(null,null,null));
+                                UserReceiptAdapter receiptAdapter = new UserReceiptAdapter(getActivity(), userReceiptDetailses);
+
+                                // Get a reference to the ListView, and attach the adapter to the listView.
+                                ListView listView = (ListView) getActivity().findViewById(R.id.listview_flavor);
+                                listView.setAdapter(receiptAdapter);
                             }
 
                         } catch (JSONException e) {
-                            System.out.print("Comes here 1");
                             e.printStackTrace();
                         }
                     }
