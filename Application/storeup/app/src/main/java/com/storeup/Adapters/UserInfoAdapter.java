@@ -37,7 +37,7 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoHolder>{
 
         holder.userName.setText(Html.fromHtml(userProfileData.get(position).getUsername()));
         holder.userPass.setText(Html.fromHtml(userProfileData.get(position).getPassword()));
-        holder.userAddress.setText(Html.fromHtml(userProfileData.get(position).getStreet()  + userProfileData.get(position).getCity() + userProfileData.get(position).getState() + userProfileData.get(position).getZipcode()));
+        holder.userAddress.setText(Html.fromHtml(userProfileData.get(position).getStreet()  +" "+ userProfileData.get(position).getCity()+" " + userProfileData.get(position).getState() +" " + userProfileData.get(position).getZipcode()));
         holder.userPhone.setText(Html.fromHtml(userProfileData.get(position).getPhone()));
 
     }
