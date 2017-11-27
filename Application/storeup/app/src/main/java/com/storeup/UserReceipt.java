@@ -1,13 +1,16 @@
 package com.storeup;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
@@ -23,6 +26,11 @@ import java.util.ArrayList;
 
 public class UserReceipt extends Fragment {
     AppSessionManager appSessionManager;
+    private ListView list_view;
+    private TextView store_name;
+    private TextView store_address;
+    private TextView downoald_url;
+    private Bundle listBundle = new Bundle();
     private static String KEY_SUCCESS = "success";
 
     private ArrayList<UserReceiptDetails> userReceiptDetailses = new ArrayList<UserReceiptDetails>();
@@ -30,8 +38,12 @@ public class UserReceipt extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.user_receipts_fragment,container, false);
+        View view = inflater.inflate(R.layout.user_receipts_fragment,container, false);
+
+        /**/
+        return view;
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -39,6 +51,21 @@ public class UserReceipt extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Scanned Receipt");
         getUserReceipts();
+        list_view =(ListView)view.findViewById(R.id.listview_flavor);
+        list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View viewClicked,int position, long id) {
+                Toast.makeText(getActivity().getApplicationContext(),"Store Name:"+userReceiptDetailses.get(position).getStore_name(), Toast.LENGTH_LONG).show();
+                listBundle.putString("store_name",userReceiptDetailses.get(position).getStore_name());
+                listBundle.putString("store_address",userReceiptDetailses.get(position).getStore_address());
+                listBundle.putString("download_url",userReceiptDetailses.get(position).getDownload_url());
+                Fragment receipt = new Receipt_details();
+                receipt.setArguments(listBundle);
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.content_main,receipt).commit();
+                //Here you can hadle your Views....
+            }
+        });
     }
 
     private void getUserReceipts(){
