@@ -40,4 +40,27 @@ router.get('/userReceipts', function (req, res, next) {
     })
 })
 
+router.post('/updateUserProfile',function (req, res, next) {
+    var email = req.body.email;
+    var user_name = req.body.userName;
+    var user_street = req.body.userStreet;
+    var user_city = req.body.userCity;
+    var user_state = req.body.userState;
+    var user_zip = req.body.userZip;
+    var user_phone = req.body.userPhone;
+    db.query('update user_details set  street= ?, city = ?, state = ?, zipcode = ?, phone_number = ? where email = ? and user_name = ?', [user_street, user_city, user_state, user_zip, user_phone, email,user_name], function (err, rows, fields) {
+        if (err) throw err;
+
+
+        if (rows.length > 0) {
+            res.send({response: "0"});
+
+        }else {
+            res.send({response: "1"});
+        }
+    })
+
+
+})
+
 module.exports = router;

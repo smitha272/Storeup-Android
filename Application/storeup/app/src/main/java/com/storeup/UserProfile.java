@@ -1,9 +1,11 @@
 package com.storeup;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -44,18 +46,14 @@ public class UserProfile extends Fragment {
     private TextView uZip;
     private TextView uPhone;
     private FloatingActionButton mEditProfileBtn;
+    private Bundle dataBundle = new Bundle();
+
+
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.user_profile_fragment,container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-        super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("User Profile");
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.user_profile_fragment,container, false);
         appSessionManager=new AppSessionManager(getActivity().getApplicationContext());
 
 /*        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -73,12 +71,27 @@ public class UserProfile extends Fragment {
         uState = (TextView)view.findViewById(R.id.state);
         uZip = (TextView)view.findViewById(R.id.zipcode);
         uPhone = (TextView)view.findViewById(R.id.phone);
-       /* mGender=(TextView)view.findViewById(R.id.gender);
-        mCurrentWeight=(TextView)view.findViewById(R.id.current_weight);
-        mCurrentHeight=(TextView)view.findViewById(R.id.current_height);
-        mGoalWeight=(TextView)view.findViewById(R.id.goal_weight);
-        mPerWeekGoal=(TextView)view.findViewById(R.id.per_week_goal);
-        mEditProfileBtn=(FloatingActionButton) view.findViewById(R.id.edit_profile_btn);*/
+
+        mEditProfileBtn=(FloatingActionButton) view.findViewById(R.id.edit_profile);
+
+        mEditProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment userEdit = new ProfileEdit();
+                userEdit.setArguments(dataBundle);
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.content_main,userEdit).commit();
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("User Profile");
 
         getUserDetails();
     }
@@ -117,22 +130,25 @@ public class UserProfile extends Fragment {
                             uZip.setText(user_zip);
                             uPhone.setText(user_phone);
 
-                           /* mGender.setText(response.getString("gender").equals("1")?"Male":"Female");
-                            mCurrentWeight.setText(response.getString("currentWeight").concat(" Kg"));
-                            mCurrentHeight.setText(response.getString("currentHeight").concat(" cms"));
-                            mGoalWeight.setText(response.getString("goalWeight").concat(" Kg"));
-                            mPerWeekGoal.setText(response.getString("perWeekGoal").concat(" lbs"));*/
-                            /*completeUserData.add(new UserProfileData(user_name, user_pass, user_street, user_city, user_state, user_phone, user_zip));
 
-                            userInfoAdapter = new UserInfoAdapter(getActivity(), completeUserData);
-                            userRecyclerView.setAdapter(userInfoAdapter);*/
+                            dataBundle.putString("email",email_id);
+                            dataBundle.putString("user_name",user_name);
+                            dataBundle.putString("user_street",user_street);
+                            dataBundle.putString("user_city",user_city);
+                            dataBundle.putString("user_state",user_state);
+                            dataBundle.putString("user_phone",user_phone);
+                            dataBundle.putString("user_zip",user_zip);
+
+
+
+
 
                             System.out.println("Response Object" + userDetails.getString("user_id"));
 
                             if (response.getString(KEY_SUCCESS) != null) {
                                 int success = Integer.parseInt(response.getString(KEY_SUCCESS));
                                 if (success == 1) {
-                                    Toast.makeText(getActivity().getApplicationContext(), message.toString(), Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(getActivity().getApplicationContext(), message.toString(), Toast.LENGTH_LONG).show();
                                 }
                                 else {
                                     Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
@@ -147,7 +163,7 @@ public class UserProfile extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("Response Error", error.toString());
-                Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
             }
         });
         req.setRetryPolicy(new DefaultRetryPolicy(
@@ -156,8 +172,6 @@ public class UserProfile extends Fragment {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         VolleyController.getInstance(getActivity().getApplicationContext()).addToRequestQueue(req);
-
-        Toast.makeText(getActivity().getApplicationContext(),URL, Toast.LENGTH_LONG).show();
     }
 
 }

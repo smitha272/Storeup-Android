@@ -100,7 +100,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="User Name:"
+                            android:text="Name:"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                         <TextView
@@ -228,6 +228,7 @@
     <android.support.design.widget.FloatingActionButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:id="@+id/edit_profile"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end"
         android:src="@drawable/ic_mode_edit_white_24dp"
