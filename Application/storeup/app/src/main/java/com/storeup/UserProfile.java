@@ -3,12 +3,14 @@ package com.storeup;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -33,6 +35,15 @@ public class UserProfile extends Fragment {
     private RecyclerView userRecyclerView;
     private UserInfoAdapter userInfoAdapter;
     private List<UserProfileData> completeUserData;
+
+    private TextView mEmail;
+    private TextView uName;
+    private TextView uStreet;
+    private TextView uCity;
+    private TextView uState;
+    private TextView uZip;
+    private TextView uPhone;
+    private FloatingActionButton mEditProfileBtn;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -47,18 +58,32 @@ public class UserProfile extends Fragment {
 
         appSessionManager=new AppSessionManager(getActivity().getApplicationContext());
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+/*        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         userRecyclerView = (RecyclerView) getView().findViewById(R.id.profile_list);
         userRecyclerView.setLayoutManager(layoutManager);
         userRecyclerView.setHasFixedSize(true);
 
 
-        completeUserData = new ArrayList<UserProfileData>();
+        completeUserData = new ArrayList<UserProfileData>();*/
+
+        mEmail=(TextView)view.findViewById(R.id.email);
+        uName=(TextView)view.findViewById(R.id.user_name);
+        uStreet=(TextView)view.findViewById(R.id.street);
+        uCity = (TextView)view.findViewById(R.id.city);
+        uState = (TextView)view.findViewById(R.id.state);
+        uZip = (TextView)view.findViewById(R.id.zipcode);
+        uPhone = (TextView)view.findViewById(R.id.phone);
+       /* mGender=(TextView)view.findViewById(R.id.gender);
+        mCurrentWeight=(TextView)view.findViewById(R.id.current_weight);
+        mCurrentHeight=(TextView)view.findViewById(R.id.current_height);
+        mGoalWeight=(TextView)view.findViewById(R.id.goal_weight);
+        mPerWeekGoal=(TextView)view.findViewById(R.id.per_week_goal);
+        mEditProfileBtn=(FloatingActionButton) view.findViewById(R.id.edit_profile_btn);*/
 
         getUserDetails();
     }
     private void getUserDetails() {
-        String email = appSessionManager.getKeyEmail();
+        final String email = appSessionManager.getKeyEmail();
         final String URL = "http://10.0.2.2:3000/users/userDetails" + "?email=" + email;
 
         // pass second argument as "null" for GET requests
@@ -72,6 +97,7 @@ public class UserProfile extends Fragment {
                             System.out.println("Response Object" + response);
                             JSONObject userDetails = new JSONObject();
                             userDetails = response.getJSONObject("user_details");
+                            String email_id = userDetails.getString("email");
                             String user_name = userDetails.getString("user_name");
                             String user_pass = userDetails.getString("password");
                             String user_street = userDetails.getString("street");
@@ -81,10 +107,25 @@ public class UserProfile extends Fragment {
                             String user_zip = userDetails.getString("zipcode");
                             String message = response.getString("message");
 
-                            completeUserData.add(new UserProfileData(user_name, user_pass, user_street, user_city, user_state, user_phone, user_zip));
+
+
+                            mEmail.setText(email_id);
+                            uName.setText(user_name);
+                            uStreet.setText(user_street);
+                            uCity.setText(user_city);
+                            uState.setText(user_state);
+                            uZip.setText(user_zip);
+                            uPhone.setText(user_phone);
+
+                           /* mGender.setText(response.getString("gender").equals("1")?"Male":"Female");
+                            mCurrentWeight.setText(response.getString("currentWeight").concat(" Kg"));
+                            mCurrentHeight.setText(response.getString("currentHeight").concat(" cms"));
+                            mGoalWeight.setText(response.getString("goalWeight").concat(" Kg"));
+                            mPerWeekGoal.setText(response.getString("perWeekGoal").concat(" lbs"));*/
+                            /*completeUserData.add(new UserProfileData(user_name, user_pass, user_street, user_city, user_state, user_phone, user_zip));
 
                             userInfoAdapter = new UserInfoAdapter(getActivity(), completeUserData);
-                            userRecyclerView.setAdapter(userInfoAdapter);
+                            userRecyclerView.setAdapter(userInfoAdapter);*/
 
                             System.out.println("Response Object" + userDetails.getString("user_id"));
 
