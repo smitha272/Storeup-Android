@@ -60,7 +60,7 @@ public class UserReceipt extends Fragment {
                 listBundle.putString("store_address",userReceiptDetailses.get(position).getStore_address());
                 listBundle.putString("download_url",userReceiptDetailses.get(position).getDownload_url());
                 listBundle.putString("latitude",userReceiptDetailses.get(position).getLatitude());
-                listBundle.putString("latitude",userReceiptDetailses.get(position).getLongitude());
+                listBundle.putString("longitude",userReceiptDetailses.get(position).getLongitude());
                 Fragment receipt = new Receipt_details();
                 receipt.setArguments(listBundle);
                 FragmentManager manager = getFragmentManager();
@@ -92,6 +92,7 @@ public class UserReceipt extends Fragment {
                                         userReceiptDetailses.add(new UserReceiptDetails(eachReceipt.getString("store_name"), eachReceipt.getString("store_address"), eachReceipt.getString("download_url")));
                                     }else {
                                         userReceiptDetailses.add(new UserReceiptDetails(eachReceipt.getString("store_name"), eachReceipt.getString("store_address"), eachReceipt.getString("download_url"), eachReceipt.getString("latitude"), eachReceipt.getString("longitude")));
+                                        System.out.println("The Longitude is"+eachReceipt.getString("longitude"));
                                     }
                                 }
                                 UserReceiptAdapter receiptAdapter = new UserReceiptAdapter(getActivity(), userReceiptDetailses);

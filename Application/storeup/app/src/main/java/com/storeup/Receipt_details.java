@@ -28,7 +28,14 @@ public class Receipt_details extends Fragment implements OnMapReadyCallback {
     private ImageView imageView2;
     private TextView storeName;
     private TextView storeAddress;
+    private String latitude="0";
+    private String longitude = "0";
+    private double lat = 0.0;
+    private double lng = 0.0;
     private View mview;
+    private boolean flag =false;
+    private String store_name;
+    private String store_address;
     GoogleMap mGoogleMap;
     MapView mMapView;
 
@@ -45,11 +52,20 @@ public class Receipt_details extends Fragment implements OnMapReadyCallback {
         // Inflate the layout for this fragment
         mview=  inflater.inflate(R.layout.fragment_receipt_details, container, false);
         Bundle bundle = getArguments();
-        String store_name = bundle.getString("store_name");
-        String store_address = bundle.getString("store_address");
+        store_name = bundle.getString("store_name");
+        store_address = bundle.getString("store_address");
         String download_url = bundle.getString("download_url");
-        String latitude = bundle.getString("latitude");
-        String longitude = bundle.getString("longitude");
+        latitude = bundle.getString("latitude");
+        longitude = bundle.getString("longitude");
+        System.out.println("latitude "+latitude+" longitude "+longitude);
+
+        if((latitude=="0" && longitude=="0") || (latitude==null && longitude==null)){
+            flag=false;
+        }else{
+            System.out.println("latitude "+latitude);
+            lat = Double.parseDouble(latitude);
+            lng = Double.parseDouble(longitude);
+        }
 
         /*if(!latitude.equals("0") && !longitude.equals("0")){
 
@@ -84,8 +100,8 @@ public class Receipt_details extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
         mGoogleMap = googleMap;
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(40.689247, -74.044502)).title("xyz").snippet("sdfsdfsdfs"));
-        CameraPosition abc = CameraPosition.builder().target(new LatLng(40.689247, -74.044502)).zoom(16).bearing(0).tilt(45).build();
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(store_name).snippet(store_address));
+        CameraPosition abc = CameraPosition.builder().target(new LatLng(lat, lng)).zoom(16).bearing(0).tilt(45).build();
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(abc));
 
     }
