@@ -5,8 +5,6 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,24 +17,19 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.storeup.Adapters.UserInfoAdapter;
-import com.storeup.Entity.UserProfileData;
 import com.storeup.Extras.CustomJSONObjectRequest;
 import com.storeup.Extras.VolleyController;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class UserProfile extends Fragment {
     AppSessionManager appSessionManager;
     private static String KEY_SUCCESS = "success";
     private RecyclerView userRecyclerView;
-    private UserInfoAdapter userInfoAdapter;
-    private List<UserProfileData> completeUserData;
+    //private UserInfoAdapter userInfoAdapter;
+    //private List<UserProfileData> completeUserData;
 
     private TextView mEmail;
     private TextView uName;

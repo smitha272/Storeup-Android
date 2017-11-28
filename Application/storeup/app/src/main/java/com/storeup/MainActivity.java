@@ -1,12 +1,9 @@
 package com.storeup;
 
-import android.*;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,19 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.storeup.Adapters.UserInfoAdapter;
 import com.storeup.Entity.UserProfileData;
-import com.storeup.Extras.CustomJSONObjectRequest;
-import com.storeup.Extras.VolleyController;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +28,7 @@ public class MainActivity extends AppCompatActivity
     private static String KEY_SUCCESS = "success";
     private static String KEY_USERID  = "userid";
     private RecyclerView userRecyclerView;
-    private UserInfoAdapter userInfoAdapter;
+    //private UserInfoAdapter userInfoAdapter;
     private List<UserProfileData> completeUserData;
     String s;
     TextView test;
@@ -80,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        displaySelectedNavScreen(R.id.scan_receipts);
+        displaySelectedNavScreen(R.id.user_home);
     }
 
     @Override
@@ -185,6 +170,9 @@ public class MainActivity extends AppCompatActivity
     private void displaySelectedNavScreen(int id) {
         Fragment fragment = null;
         switch (id) {
+            case R.id.user_home:
+                fragment = new HomePage();
+                break;
             case R.id.user_profile:
                 fragment = new UserProfile();
                 break;

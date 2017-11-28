@@ -3,12 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/user_home"
+            android:icon="@drawable/ic_menu_home1"
+            android:title="Home"></item>
+        <item
             android:id="@+id/user_profile"
-            android:icon="@drawable/circledude"
+            android:icon="@drawable/circledude1"
             android:title="My Profile" />     <!--Share changed to My Account-->
+
         <ImageView
             android:id="@+id/myaccountImage"
-            android:src="@drawable/myaccountimage" />
+            android:src="@drawable/circledude1" />
+
+
         <item
             android:id="@+id/user_receipts"
             android:icon="@drawable/ic_menu_camera"
@@ -19,7 +26,7 @@
             android:title="My Coupons" />
         <item
             android:id="@+id/scan_receipts"
-            android:icon="@drawable/ic_scan_receipt"
+            android:icon="@drawable/ic_scan_receipt1"
             android:title="Scan Receipt" />
     </group>
 
@@ -27,11 +34,11 @@
         <menu>
             <item
                 android:id="@+id/faqs"
-                android:icon="@drawable/ic_menu_slideshow"
+                android:icon="@drawable/slideshow"
                 android:title="FAQs" />
             <item
                 android:id="@+id/user_signout"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@drawable/manage"
                 android:title="Sign Out" />
         </menu>
     </item>

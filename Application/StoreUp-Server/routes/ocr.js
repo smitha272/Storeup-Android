@@ -139,7 +139,9 @@ router.post('/getImageOcr', function(req, res, next) {
         console.log(addr);
         var mail;
         var useraddr;
-        db.query('INSERT into receipt_details VALUES(?,?,?,?,?,?,?,?)', [0, userid, email, StorageReference,logo, address, downloadUrl,0], function (err, result) {
+        var latitude;
+        var longitude;
+        db.query('INSERT into receipt_details VALUES(?,?,?,?,?,?,?,?,?,?)', [0, userid, email, StorageReference,logo, address, downloadUrl,0,0,0], function (err, result) {
             if (err) throw err;
             //console.log("The data is"+JSON.stringify(result));
             //res.json({success: "1", userID: userid, message: "data stored successfully"});
@@ -156,7 +158,9 @@ router.post('/getImageOcr', function(req, res, next) {
                     },function (err,response) {
                         if(!err){
                             if(response){
-                                console.log("The address is: "+JSON.stringify(response.json.results[0].address_components));
+                                console.log("The address is: "+JSON.stringify(response.json.results[0].geometry));
+                                latitude = response.json.results[0].geometry.location.lat;
+                                longitude = response.json.results[0].geometry.location.lng;
                                 var origins = useraddr;
                                 var destination = addr;
                                 distance.get(
@@ -171,7 +175,7 @@ router.post('/getImageOcr', function(req, res, next) {
                                         if(data){
                                             console.log("distance: " + data.distance);
                                             var distanceTravelled = data.distance;
-                                            db.query('update receipt_details set distance_traveled_by_user = ? where user_name = ? and url = ?',[distanceTravelled, email, StorageReference], function (err,result){
+                                            db.query('update receipt_details set distance_traveled_by_user = ?, latitude = ?, longitude=? where user_name = ? and url = ?',[distanceTravelled,latitude,longitude, email, StorageReference], function (err,result){
                                                 if(err)throw err;
                                                 console.log("updated successfuly");
                                                 res.json({success: "1", userID: 1, message: "registered"});

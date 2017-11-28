@@ -109,7 +109,15 @@
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
-    </LinearLayout>
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </com.google.android.gms.maps.MapView>
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

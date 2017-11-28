@@ -59,6 +59,8 @@ public class UserReceipt extends Fragment {
                 listBundle.putString("store_name",userReceiptDetailses.get(position).getStore_name());
                 listBundle.putString("store_address",userReceiptDetailses.get(position).getStore_address());
                 listBundle.putString("download_url",userReceiptDetailses.get(position).getDownload_url());
+                listBundle.putString("latitude",userReceiptDetailses.get(position).getLatitude());
+                listBundle.putString("latitude",userReceiptDetailses.get(position).getLongitude());
                 Fragment receipt = new Receipt_details();
                 receipt.setArguments(listBundle);
                 FragmentManager manager = getFragmentManager();
@@ -86,7 +88,11 @@ public class UserReceipt extends Fragment {
 
                                 for (int i=0;i<receiptArray.length();i++) {
                                     JSONObject eachReceipt = receiptArray.getJSONObject(i);
-                                    userReceiptDetailses.add(new UserReceiptDetails( eachReceipt.getString("store_name"), eachReceipt.getString("store_address"), eachReceipt.getString("download_url")));
+                                    if(eachReceipt.getString("latitude").equals("0") && eachReceipt.getString("longitude").equals("0")){
+                                        userReceiptDetailses.add(new UserReceiptDetails(eachReceipt.getString("store_name"), eachReceipt.getString("store_address"), eachReceipt.getString("download_url")));
+                                    }else {
+                                        userReceiptDetailses.add(new UserReceiptDetails(eachReceipt.getString("store_name"), eachReceipt.getString("store_address"), eachReceipt.getString("download_url"), eachReceipt.getString("latitude"), eachReceipt.getString("longitude")));
+                                    }
                                 }
                                 UserReceiptAdapter receiptAdapter = new UserReceiptAdapter(getActivity(), userReceiptDetailses);
 
@@ -95,7 +101,7 @@ public class UserReceipt extends Fragment {
                                 listView.setAdapter(receiptAdapter);
                             }
                             else {
-                                userReceiptDetailses.add(new UserReceiptDetails(null,null,null));
+                                userReceiptDetailses.add(new UserReceiptDetails(null,null,null,null,null));
                                 UserReceiptAdapter receiptAdapter = new UserReceiptAdapter(getActivity(), userReceiptDetailses);
 
                                 // Get a reference to the ListView, and attach the adapter to the listView.
