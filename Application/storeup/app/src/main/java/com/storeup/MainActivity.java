@@ -103,84 +103,24 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-//    private void getUserDetails() {
-//        String email = appSessionManager.getKeyEmail();
-//        final String URL = "http://10.0.2.2:3000/users/userDetails" + "?email=" + email;
-////        userRecyclerView = (RecyclerView) findViewById(R.id.profile_list);
-//        // pass second argument as "null" for GET requests
-//
-//        CustomJSONObjectRequest req = new CustomJSONObjectRequest(URL, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            VolleyLog.v("Response:%n %s", response.toString(4));
-//                            System.out.println("Response Object" + response);
-//                            JSONObject userDetails = new JSONObject();
-//                            userDetails = response.getJSONObject("user_details");
-//                            String user_name = userDetails.getString("user_name");
-//                            String user_pass = userDetails.getString("password");
-//                            String user_street = userDetails.getString("street");
-//                            String user_city = userDetails.getString("city");
-//                            String user_state = userDetails.getString("state");
-//                            String user_phone = userDetails.getString("phone_number");
-//                            String user_zip = userDetails.getString("zipcode");
-//                            String message = response.getString("message");
-//
-//                            completeUserData.add(new UserProfileData(user_name, user_pass, user_street, user_city, user_state, user_phone, user_zip));
-//
-//                            userInfoAdapter = new UserInfoAdapter(MainActivity.this, completeUserData);
-//                            userRecyclerView.setAdapter(userInfoAdapter);
-//
-//                            System.out.println("Response Object" + userDetails.getString("user_id"));
-//
-//                            if (response.getString(KEY_SUCCESS) != null) {
-//                                int success = Integer.parseInt(response.getString(KEY_SUCCESS));
-//                                if (success == 1) {
-//                                    Toast.makeText(getApplicationContext(), message.toString(), Toast.LENGTH_LONG).show();
-//                                }
-//                                else {
-//                                    Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
-//                                }
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.d("Response Error", error.toString());
-//                Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
-//            }
-//        });
-//        req.setRetryPolicy(new DefaultRetryPolicy(
-//                0,
-//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//
-//        VolleyController.getInstance(getApplicationContext()).addToRequestQueue(req);
-//
-//        Toast.makeText(getApplicationContext(),URL, Toast.LENGTH_LONG).show();
-//    }
-
-
+    boolean val = false;
     private void displaySelectedNavScreen(int id) {
         Fragment fragment = null;
         switch (id) {
             case R.id.user_home:
+                val = true;
                 fragment = new HomePage();
                 break;
             case R.id.user_profile:
+                val = false;
                 fragment = new UserProfile();
                 break;
             case R.id.user_receipts:
+                val = false;
                 fragment = new UserReceipt();
                 break;
             case R.id.user_coupons:
-
+                val = false;
                 fragment = new UserCoupon();
                 break;
             /*case R.id.faqs:
@@ -189,15 +129,22 @@ public class MainActivity extends AppCompatActivity
                 //fragment = new Faqs();
                 break;*/
             case R.id.scan_receipts:
+                val = false;
                 fragment = new ScanReceipt();
                 break;
             case R.id.user_signout:
+                val = false;
                 appSessionManager.logoutUser();
 
         }
         if(fragment != null) {
             FragmentTransaction ft = getFragmentManager().beginTransaction();
 //            ft.remove(fragment);
+            if(val==false){
+                ft.replace(R.id.content_main1,new BlankFragment());
+            }else {
+                ft.replace(R.id.content_main1,new frequent_storevisit());
+            }
             ft.replace(R.id.content_main, fragment);
             ft.commit();
         }

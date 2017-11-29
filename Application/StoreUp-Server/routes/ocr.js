@@ -87,9 +87,54 @@ router.post('/getImageOcr', function(req, res, next) {
         }
 
         var address="";
-        //console.log("Text is: \n"+text);
-        //console.log("Logo is: \n"+logo);
-        if(logo=="Target" || logo=="Target Corporation"){
+
+        switch(logo){
+            case "Target"||"Target Corporation":
+                var count=0;
+                for(var i=0;i<text.length;i++){
+                    if(count>1){
+                        break;
+                    }
+                    if(count==1){
+                        address+=text.charAt(i);
+                    }
+                    if(text.charAt(i)=='\n'){
+                        count++;
+                    }
+                }
+                console.log(address);
+                break;
+            case "Walmart":
+                var count=0;
+                for(var i=0;i<text.length;i++){
+                    if(count>5){
+                        break;
+                    }
+                    if(count==5){
+                        address+=text.charAt(i);
+                    }
+                    if(text.charAt(i)=='\n'){
+                        count++;
+                    }
+                }
+                break;
+            case "Costco":
+                var count=0;
+                for(var i=0;i<text.length;i++){
+                    if(count>3){
+                        break;
+                    }
+                    if(count==1 || count==2){
+                        address+=text.charAt(i);
+                    }
+                    if(text.charAt(i)=='\n'){
+                        count++;
+                    }
+                }
+                break;
+        }
+
+        /*if(logo=="Target" || logo=="Target Corporation"){
             var count=0;
             for(var i=0;i<text.length;i++){
                 if(count>1){
@@ -131,7 +176,7 @@ router.post('/getImageOcr', function(req, res, next) {
             }
         }else if  (logo == "SAFEWAY"){
 
-        }
+        }*/
 
         /*console.log("Text is: \n"+text);
          console.log("Store Name is :"+logo+" and the address is:"+address);*/

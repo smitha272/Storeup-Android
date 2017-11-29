@@ -1,6 +1,7 @@
 package com.storeup;
 
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,6 +36,9 @@ import java.util.ArrayList;
 public class HomePage extends Fragment {
     AppSessionManager appSessionManager;
     private static String KEY_SUCCESS = "success";
+    private ListView list_view;
+
+    private Bundle listBundle = new Bundle();
 
     private ArrayList<UserHomeDetails> homeDetails = new ArrayList<UserHomeDetails>();
 
@@ -46,6 +51,9 @@ public class HomePage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
+
         return inflater.inflate(R.layout.fragment_home_page, container, false);
     }
 
@@ -55,6 +63,18 @@ public class HomePage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Home");
         getHomeDetails();
+        list_view=(ListView)view.findViewById(R.id.storesCount);
+        list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View viewClicked,int position, long id) {
+                listBundle.putString("user_email",appSessionManager.getKeyEmail());
+                listBundle.putString("store_name",homeDetails.get(position).getStore());
+                Fragment fragment = new store_details();
+                fragment.setArguments(listBundle);
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.content_main,fragment).commit();
+            }
+        });
     }
 
     private void getHomeDetails(){
@@ -88,28 +108,6 @@ public class HomePage extends Fragment {
                                     }else {
                                         homeDetails.add(new UserHomeDetails(eachStore.getString("store_name"), coupon_count, R.drawable.store, true));
                                     }
-                                    /*if(Integer.parseInt(coupon_count)/10>0){
-                                        System.out.println("Store inside if: " + store_name);
-                                        if(Integer.parseInt(coupon_count)%10>1){
-                                            if((Integer.parseInt(coupon_count)%10)!=0){
-                                                int count_remainder = 10-Integer.parseInt(coupon_count)%10;
-                                                homeDetails.add(new UserCouponDetails( eachStore.getString("store_name"), Integer.toString(count_remainder), R.drawable.marshmallow, true));
-                                            }
-
-                                            int count = Integer.parseInt(coupon_count)/10;
-                                            for(int j=0;j<count;j++){
-                                                homeDetails.add(new UserCouponDetails( eachStore.getString("store_name"), eachStore.getString("Count"), R.drawable.marshmallow, false));
-                                            }
-                                        }
-                                        else {
-                                            int remainder = 10-Integer.parseInt(coupon_count)%10;
-                                            homeDetails.add(new UserCouponDetails( eachStore.getString("store_name"), Integer.toString(remainder), R.drawable.marshmallow, true));
-                                        }
-                                    } else{
-                                        System.out.println("Store inside else: " + store_name);
-                                        int remaining_count = 10-Integer.parseInt(coupon_count);
-                                        homeDetails.add(new UserCouponDetails( eachStore.getString("store_name"), Integer.toString(remaining_count), R.drawable.marshmallow, true));
-                                    }*/
                                 }
 
                                 UserHomeAdapter flavorAdapter = new UserHomeAdapter(getActivity(), homeDetails);

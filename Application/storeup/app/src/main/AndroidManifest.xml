@@ -4,10 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -28,14 +31,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCyj7jOTrh2bYp6Nv5ql2a2EEa32O6XIBI"/>
-        <activity android:name=".ScanImageActivity"></activity>
-    </application>
+            android:value="AIzaSyCyj7jOTrh2bYp6Nv5ql2a2EEa32O6XIBI" />
 
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true"/>
+        <activity android:name=".ScanImageActivity" />
+    </application>
 
 </manifest>
