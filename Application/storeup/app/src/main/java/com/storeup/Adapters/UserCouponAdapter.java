@@ -16,7 +16,6 @@ public class UserCouponAdapter extends ArrayAdapter<UserCouponDetails> {
 
     private static final String LOG_TAG = UserCouponAdapter.class.getSimpleName();
 
-
     public UserCouponAdapter(Activity context, ArrayList<UserCouponDetails> userReceipts) {
         super(context, 0, userReceipts);
     }
@@ -36,10 +35,10 @@ public class UserCouponAdapter extends ArrayAdapter<UserCouponDetails> {
         TextView couponCode = (TextView) listItemView.findViewById(R.id.couponCode);
 
 
-        if(couponsToBeDisplayed.getIsRemainder()) {
+        if(!couponsToBeDisplayed.getIsRemainder()) {
             couponName.setText(couponsToBeDisplayed.getStore());
             couponDesc.setText("Sorry, you haven't scanned enough receipts yet. You need to scan just " + couponsToBeDisplayed.getCount() + " more receipts to win a new "+ couponsToBeDisplayed.getStore() + " coupon!");
-            couponIcon.setImageResource(couponsToBeDisplayed.getCoupon_icon());
+            couponIcon.setVisibility(View.GONE);
             couponCode.setVisibility(View.GONE);
         }
         else {

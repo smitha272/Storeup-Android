@@ -16,7 +16,7 @@ router.get('/getCoupon', function(req, res, next) {
             res.json({success: "1", "couponCount": rows});
 
         }else {
-            res.json({success: "0", message: "invalid email or password"});
+            res.json({success: "0", message: "no coupons"});
         }
     })
 });

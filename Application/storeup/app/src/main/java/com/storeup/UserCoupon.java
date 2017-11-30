@@ -87,6 +87,14 @@ public class UserCoupon extends Fragment {
                                 ListView listView = (ListView) getActivity().findViewById(R.id.userCoupons);
                                 listView.setAdapter(flavorAdapter);
                             }
+                            else {
+                                couponDetails.add(new UserCouponDetails(null,null,0, false));
+                                UserCouponAdapter couponAdapter = new UserCouponAdapter(getActivity(), couponDetails);
+
+                                // Get a reference to the ListView, and attach the adapter to the listView.
+                                ListView listView = (ListView) getActivity().findViewById(R.id.userCoupons);
+                                listView.setAdapter(couponAdapter);
+                            }
 
                         } catch (JSONException e) {
                             System.out.print("Comes here 1");
