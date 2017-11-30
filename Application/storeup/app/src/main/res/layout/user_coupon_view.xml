@@ -23,12 +23,20 @@
         <TextView
             android:id="@+id/couponName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="@dimen/list_item_article_space"/>
 
         <TextView
             android:id="@+id/couponDescription"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="@dimen/list_item_artile_vertical_margin"/>
+
+        <TextView
+            android:id="@+id/couponCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="@dimen/list_item_artile_vertical_margin"/>
 
     </LinearLayout>
 

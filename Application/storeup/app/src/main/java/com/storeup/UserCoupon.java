@@ -2,7 +2,6 @@ package com.storeup;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,9 +14,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.storeup.Adapters.UserCouponAdapter;
-import com.storeup.Adapters.UserReceiptAdapter;
 import com.storeup.Entity.UserCouponDetails;
-import com.storeup.Entity.UserReceiptDetails;
 import com.storeup.Extras.CustomJSONObjectRequest;
 import com.storeup.Extras.VolleyController;
 
@@ -70,27 +67,18 @@ public class UserCoupon extends Fragment {
                                     String coupon_count = eachStore.getString("Count");
                                     System.out.println("Store: " + store_name);
                                     System.out.println("Number of coupons: " + coupon_count);
-                                    if(Integer.parseInt(coupon_count)/10>0){
+                                    if(Integer.parseInt(coupon_count) >= 10){
                                         System.out.println("Store inside if: " + store_name);
-                                        if(Integer.parseInt(coupon_count)%10>1){
-                                            if((Integer.parseInt(coupon_count)%10)!=0){
-                                                int count_remainder = 10-Integer.parseInt(coupon_count)%10;
-                                                couponDetails.add(new UserCouponDetails( eachStore.getString("store_name"), Integer.toString(count_remainder), R.drawable.marshmallow, true));
+//
+                                            if(Integer.parseInt(coupon_count)%10 > 0){
+                                                int count = Integer.parseInt(coupon_count)/10;
+                                                for(int j=0;j<count;j++){
+                                                    couponDetails.add(new UserCouponDetails( eachStore.getString("store_name"), eachStore.getString("Count"), R.drawable.sad, false));
+                                                }
                                             }
-
-                                            int count = Integer.parseInt(coupon_count)/10;
-                                            for(int j=0;j<count;j++){
-                                                couponDetails.add(new UserCouponDetails( eachStore.getString("store_name"), eachStore.getString("Count"), R.drawable.marshmallow, false));
-                                            }
-                                        }
-                                        else {
-                                            int remainder = 10-Integer.parseInt(coupon_count)%10;
-                                            couponDetails.add(new UserCouponDetails( eachStore.getString("store_name"), Integer.toString(remainder), R.drawable.marshmallow, true));
-                                        }
-                                    } else{
-                                        System.out.println("Store inside else: " + store_name);
-                                        int remaining_count = 10-Integer.parseInt(coupon_count);
-                                        couponDetails.add(new UserCouponDetails( eachStore.getString("store_name"), Integer.toString(remaining_count), R.drawable.marshmallow, true));
+                                    }
+                                    else{
+                                        couponDetails.add(new UserCouponDetails( eachStore.getString("store_name"), "", R.drawable.sad, true));
                                     }
                                 }
 
