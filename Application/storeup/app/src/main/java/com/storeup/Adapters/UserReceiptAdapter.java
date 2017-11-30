@@ -22,6 +22,13 @@ public class UserReceiptAdapter extends ArrayAdapter<UserReceiptDetails> {
     public UserReceiptAdapter(Activity context, ArrayList<UserReceiptDetails> userReceipts) {
         super(context, 0, userReceipts);
     }
+    boolean val = true;
+
+    @Override
+    public boolean isEnabled (int position) {
+
+        return val;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -47,6 +54,7 @@ public class UserReceiptAdapter extends ArrayAdapter<UserReceiptDetails> {
             nameTextView.setVisibility(View.INVISIBLE);
             numberTextView.setVisibility(View.INVISIBLE);
             iconView.setVisibility(View.INVISIBLE);
+            val = false;
             errorView.setText(Html.fromHtml("Sorry you don't have any scanned receipts! Please go to the scan receipts section to scan some."));
         }
         return listItemView;

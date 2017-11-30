@@ -87,7 +87,7 @@ public class HomePage extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            System.out.println("Response Object" + response.getString("couponCount"));
+                            //System.out.println("Response Object" + response.getString("couponCount"));
 
                             if(response.getString("success").equals("1")) {
                                 System.out.println("success==1");
