@@ -16,6 +16,14 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.storeup.Extras.CustomJSONObjectRequest;
 import com.storeup.Extras.VolleyController;
 
@@ -30,13 +38,22 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class store_details extends Fragment {
+public class store_details extends Fragment implements OnMapReadyCallback {
 
     private String storeName;
     private String email;
     private ImageView imgView;
+    private String store_address;
     private TextView s;
     private TextView distance;
+    private GoogleMap mGoogleMap;
+    private MapView mMapView;
+    private View mview;
+    private String latitude;
+    private String longitude;
+    private Double lat;
+    private Double lng;
+    private TextView count;
 
     private String url = "http://10.0.2.2:3000/store/storeDetails";
 
@@ -49,13 +66,14 @@ public class store_details extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_store_details, container, false);
+        mview = inflater.inflate(R.layout.fragment_store_details, container, false);
         Bundle bundle = getArguments();
         storeName = bundle.getString("store_name");
         email = bundle.getString("user_email");
-        imgView = (ImageView)view.findViewById(R.id.storeImage);
-        s = (TextView)view.findViewById(R.id.storeName);
-        distance = (TextView)view.findViewById(R.id.distance);
+        imgView = (ImageView)mview.findViewById(R.id.storeImage);
+        count = (TextView)mview.findViewById(R.id.storeVisit);
+        s = (TextView)mview.findViewById(R.id.storeName);
+        distance = (TextView)mview.findViewById(R.id.distance);
         System.out.println("Store Name: "+storeName);
         if(storeName.equals("Costco")){
             imgView.setImageResource(R.drawable.costco);
@@ -66,24 +84,27 @@ public class store_details extends Fragment {
         }else{
             imgView.setImageResource(R.drawable.store);
         }
+        getStoreDetails();
+
 
 
         // Inflate the layout for this fragment
-        return view;
+        return mview;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-        getStoreDetails();
+        mMapView = (MapView)mview.findViewById(R.id.map1);
+        if(mMapView!=null){
+            mMapView.onCreate(null);
+            mMapView.onResume();
+            mMapView.getMapAsync(this);
+        }
     }
 
     public void getStoreDetails(){
 
-/*        System.out.println("Store name is:"+storeName);
-        System.out.println("User name is:"+email);*/
         CustomJSONObjectRequest rq = new CustomJSONObjectRequest(Request.Method.POST, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -96,13 +117,17 @@ public class store_details extends Fragment {
 
                             JSONArray storeDetails = new JSONArray();
                             storeDetails = response.getJSONArray("storeDetails");
-                            System.out.println("Store response: "+storeDetails.getJSONObject(0).getString("store_name"));
                             String store_name = storeDetails.getJSONObject(0).getString("store_name");
-                            String store_address = storeDetails.getJSONObject(0).getString("store_address");
+                            store_address = storeDetails.getJSONObject(0).getString("store_address");
                             String distance_traveled_by_user = storeDetails.getJSONObject(0).getString("distance_traveled_by_user");
+                            latitude = storeDetails.getJSONObject(0).getString("latitude");
+                            longitude = storeDetails.getJSONObject(0).getString("longitude");
+                            lat = Double.parseDouble(latitude);
+                            lng = Double.parseDouble(longitude);
                             s.setText(store_name);
                             distance.setText(distance_traveled_by_user);
-                            
+                            count.setText(storeDetails.getJSONObject(0).getString("store_address")+"("+storeDetails.getJSONObject(0).getString("Count")+" times )");
+
                         }catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -139,4 +164,14 @@ public class store_details extends Fragment {
 
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        //System.out.println("sdfasdfasdfasdfasdfasdfsa");
+        MapsInitializer.initialize(getContext());
+        mGoogleMap = googleMap;
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(storeName).snippet(store_address));
+        CameraPosition abc = CameraPosition.builder().target(new LatLng(lat, lng)).zoom(16).bearing(0).tilt(45).build();
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(abc));
+
     }
+}

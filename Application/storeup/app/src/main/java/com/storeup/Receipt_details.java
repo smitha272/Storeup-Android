@@ -36,8 +36,8 @@ public class Receipt_details extends Fragment implements OnMapReadyCallback {
     private boolean flag =false;
     private String store_name;
     private String store_address;
-    GoogleMap mGoogleMap;
-    MapView mMapView;
+    private GoogleMap mGoogleMap;
+    private MapView mMapView;
 
 
 
@@ -67,9 +67,6 @@ public class Receipt_details extends Fragment implements OnMapReadyCallback {
             lng = Double.parseDouble(longitude);
         }
 
-        /*if(!latitude.equals("0") && !longitude.equals("0")){
-
-        }*/
         imageView2 = (ImageView)mview.findViewById(R.id.imageView2);
         storeName = (TextView)mview.findViewById(R.id.storeName);
         storeAddress = (TextView)mview.findViewById(R.id.storeAddress);
@@ -77,8 +74,6 @@ public class Receipt_details extends Fragment implements OnMapReadyCallback {
         storeName.setText(store_name);
         storeAddress.setText(store_address);
 
-//        nameTextView.setText(currentUserReceiptDetails.getStore_name());
-//        numberTextView.setText(currentUserReceiptDetails.getStore_address());
         new ImageLoader(download_url, imageView2).execute();
 
         return mview;
@@ -103,6 +98,5 @@ public class Receipt_details extends Fragment implements OnMapReadyCallback {
         googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(store_name).snippet(store_address));
         CameraPosition abc = CameraPosition.builder().target(new LatLng(lat, lng)).zoom(16).bearing(0).tilt(45).build();
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(abc));
-
     }
 }
