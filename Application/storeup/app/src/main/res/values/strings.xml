@@ -17,6 +17,7 @@
     <string name="title_activity_nav_user_coupons">Coupons</string>
     <string name="title_activity_nav_user_receipts">Receipts</string>
     <string name="title_activity_nav_faqs">FAQs</string>
+    <string name="error_msg">Error Message</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
