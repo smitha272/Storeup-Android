@@ -125,6 +125,9 @@ public class MainActivity extends AppCompatActivity
                 startActivity(faqs);
                 //fragment = new Faqs();
                 break;*/
+            case R.id.analytics:
+                fragment = new Analytics();
+                break;
             case R.id.scan_receipts:
                 fragment = new ScanReceipt();
                 break;
