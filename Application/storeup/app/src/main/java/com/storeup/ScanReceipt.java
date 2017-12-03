@@ -66,7 +66,7 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
     //
     private ImageView imageView;
 
-    private Button buttonUpload;
+    private FloatingActionButton buttonUpload;
     private int PICK_IMAGE_REQUEST = 2;
     private Uri filePath;
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -87,7 +87,7 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
 
         appSessionManager=new AppSessionManager(getActivity().getApplicationContext());
 
-        buttonUpload = (Button)getView().findViewById(R.id.buttonUpload);
+        buttonUpload = (FloatingActionButton)getView().findViewById(R.id.upload_fab);
 
         imageView = (ImageView)getView().findViewById(R.id.imageView);
 
