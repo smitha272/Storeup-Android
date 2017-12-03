@@ -125,9 +125,9 @@ public class MainActivity extends AppCompatActivity
                 startActivity(faqs);
                 //fragment = new Faqs();
                 break;*/
-            case R.id.analytics:
+            /*case R.id.analytics:
                 fragment = new Analytics();
-                break;
+                break;*/
             case R.id.scan_receipts:
                 fragment = new ScanReceipt();
                 break;
@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction ft = getFragmentManager().beginTransaction();
 //            ft.remove(fragment);
             ft.replace(R.id.content_main, fragment);
+            ft.addToBackStack(null);
             ft.commit();
         }
 
