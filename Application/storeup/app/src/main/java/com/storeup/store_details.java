@@ -38,7 +38,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class store_details extends Fragment implements OnMapReadyCallback {
+public class store_details extends Fragment /*implements OnMapReadyCallback*/ {
 
     private String storeName;
     private String email;
@@ -55,7 +55,7 @@ public class store_details extends Fragment implements OnMapReadyCallback {
     private Double lng;
     private TextView count;
 
-    private String url = "http://10.0.2.2:3000/store/storeDetails";
+    private String url = "https://storeup-server.herokuapp.com/store/storeDetails";
 
     public store_details() {
         // Required empty public constructor
@@ -75,15 +75,7 @@ public class store_details extends Fragment implements OnMapReadyCallback {
         s = (TextView)mview.findViewById(R.id.storeName);
         distance = (TextView)mview.findViewById(R.id.distance);
         System.out.println("Store Name: "+storeName);
-        if(storeName.equals("Costco")){
-            imgView.setImageResource(R.drawable.costco);
-        }else if(storeName.equals("Walmart")){
-            imgView.setImageResource(R.drawable.walmart);
-        }else if(storeName.equals("Target")){
-            imgView.setImageResource(R.drawable.target);
-        }else{
-            imgView.setImageResource(R.drawable.store);
-        }
+
         getStoreDetails();
 
 
@@ -92,7 +84,7 @@ public class store_details extends Fragment implements OnMapReadyCallback {
         return mview;
     }
 
-    @Override
+   /* @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mMapView = (MapView)mview.findViewById(R.id.map1);
@@ -101,7 +93,7 @@ public class store_details extends Fragment implements OnMapReadyCallback {
             mMapView.onResume();
             mMapView.getMapAsync(this);
         }
-    }
+    }*/
 
     public void getStoreDetails(){
 
@@ -122,10 +114,21 @@ public class store_details extends Fragment implements OnMapReadyCallback {
                             String distance_traveled_by_user = storeDetails.getJSONObject(0).getString("distance_traveled_by_user");
                             latitude = storeDetails.getJSONObject(0).getString("latitude");
                             longitude = storeDetails.getJSONObject(0).getString("longitude");
+                            System.out.println("lat:" + latitude);
+                            System.out.println("long:" + longitude);
                             lat = Double.parseDouble(latitude);
                             lng = Double.parseDouble(longitude);
                             s.setText(store_name);
                             distance.setText(distance_traveled_by_user);
+                            if(storeName.equals("Costco")){
+                                imgView.setImageResource(R.drawable.costco);
+                            }else if(storeName.equals("Walmart")){
+                                imgView.setImageResource(R.drawable.walmart);
+                            }else if(storeName.equals("Target")){
+                                imgView.setImageResource(R.drawable.target);
+                            }else{
+                                imgView.setImageResource(R.drawable.store);
+                            }
                             count.setText(storeDetails.getJSONObject(0).getString("store_address")+"("+storeDetails.getJSONObject(0).getString("Count")+" times )");
 
                         }catch (JSONException e) {
@@ -164,7 +167,7 @@ public class store_details extends Fragment implements OnMapReadyCallback {
 
     }
 
-    @Override
+   /* @Override
     public void onMapReady(GoogleMap googleMap) {
         //System.out.println("sdfasdfasdfasdfasdfasdfsa");
         MapsInitializer.initialize(getContext());
@@ -173,5 +176,5 @@ public class store_details extends Fragment implements OnMapReadyCallback {
         CameraPosition abc = CameraPosition.builder().target(new LatLng(lat, lng)).zoom(16).bearing(0).tilt(45).build();
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(abc));
 
-    }
+    }*/
 }
