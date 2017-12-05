@@ -52,23 +52,17 @@ router.post('/register',function (req, res, next) {
 
 
 
-    db.query('select * from user_details where email = ?', [email], function(err, rows, result) {
+    db.query('select * from admin_details where admin_email = ?', [email], function(err, rows, result) {
         if (err) throw err;
         if(rows.length > 0){
             res.json({success: "0", message: "email exists"});
         }else {
             //check username exists
-            db.query('select * from user_details where user_name = ?', [username], function(err, rows, result) {
+
+            db.query('INSERT INTO admin_details VALUES(?,?, ?, ?, ?, ?, ?, ?, ?)', [0,email, password,username,street,city,state,zipcode,phone], function(err, result) {
                 if (err) throw err;
-                if(rows.length > 0){
-                    res.json({success: "2", message: "username exists"});
-                }else {
-                    db.query('INSERT INTO admin_details VALUES(?,?, ?, ?, ?, ?, ?, ?, ?)', [0,email, password,username,street,city,state,zipcode,phone], function(err, result) {
-                        if (err) throw err;
-                        res.json({success: "1", userID: 1, message: "registered"});
-                        console.log(result.insertId);
-                    });
-                }
+                res.json({success: "1", userID: 1, message: "registered"});
+                console.log(result.insertId);
             });
         }
     });
