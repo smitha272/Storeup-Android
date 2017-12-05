@@ -38,7 +38,8 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
-    private String url = "http://10.0.2.2:3000/loginRegister/register";
+    private String url = "https://10.0.2.2:3000/loginRegister/register";
+    private String adminurl = "http://10.0.2.2:3000/adminloginRegister/register";
     private static String KEY_SUCCESS = "success";
     private static String KEY_USERID  = "userid";
     private Thread thread;
@@ -78,63 +79,129 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Enter a valid phone number", Toast.LENGTH_LONG).show();
                 }*/
                 else{
-                    CustomJSONObjectRequest rq = new CustomJSONObjectRequest(Request.Method.POST, url, null,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    try {
-                                        if (response.getString(KEY_SUCCESS) != null) {
-                                            int success = Integer.parseInt(response.getString(KEY_SUCCESS));
-                                            if (success == 1) {
-                                                Toast.makeText(getApplicationContext(), R.string.registered, Toast.LENGTH_LONG).show();
-                                                thread.start();
-                                            } else if (success == 0) {
-                                                Toast.makeText(getApplicationContext(), R.string.email_exists, Toast.LENGTH_LONG).show();
-                                            }else if (success == 2) {
-                                                Toast.makeText(getApplicationContext(), R.string.username_exists, Toast.LENGTH_LONG).show();
-                                            }else {
-                                                Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                    String emailId = et_email.getText().toString();
+                    String[] tempString = emailId.split("@");
+
+                    if(tempString[1].equals("walmart.com") || tempString[1].equals("target.com") || tempString[1].equals("costco.com") ){
+
+                        CustomJSONObjectRequest rq = new CustomJSONObjectRequest(Request.Method.POST, adminurl, null,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            if (response.getString(KEY_SUCCESS) != null) {
+                                                int success = Integer.parseInt(response.getString(KEY_SUCCESS));
+                                                if (success == 1) {
+                                                    Toast.makeText(getApplicationContext(), R.string.registered, Toast.LENGTH_LONG).show();
+                                                    thread.start();
+                                                } else if (success == 0) {
+                                                    Toast.makeText(getApplicationContext(), R.string.email_exists, Toast.LENGTH_LONG).show();
+                                                }else if (success == 2) {
+                                                    Toast.makeText(getApplicationContext(), R.string.username_exists, Toast.LENGTH_LONG).show();
+                                                }else {
+                                                    Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                                                }
                                             }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
                                     }
-                                }
-                            }, new Response.ErrorListener() {
+                                }, new Response.ErrorListener() {
 
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d("Response Error", error.toString());
-                            Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
-                        }
-                    }) {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("Response Error", error.toString());
+                                Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                            }
+                        }) {
 
-                        @Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                            HashMap<String, String> headers = new HashMap<String, String>();
-                            headers.put("Content-Type", "application/x-www-form-urlencoded");
-                            return headers;
-                        }
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                HashMap<String, String> headers = new HashMap<String, String>();
+                                headers.put("Content-Type", "application/x-www-form-urlencoded");
+                                return headers;
+                            }
 
-                        @Override
-                        protected Map<String, String> getParams() {
-                            Map<String, String> params = new HashMap<String, String>();
-                            params.put("tag", "register");
-                            params.put("email", et_email.getText().toString());
-                            params.put("username", et_username.getText().toString());
-                            //params.put("password", Utils.md5(et_password.getText().toString()));
-                            params.put("password", et_password.getText().toString());
-                            params.put("street", et_street.getText().toString());
-                            params.put("city", et_city.getText().toString());
-                            params.put("state", et_state.getText().toString());
-                            params.put("zipcode", et_zipcode.getText().toString());
-                            params.put("phone", et_phone.getText().toString());
-                            return params;
-                        }
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("tag", "register");
+                                params.put("email", et_email.getText().toString());
+                                params.put("username", et_username.getText().toString());
+                                //params.put("password", Utils.md5(et_password.getText().toString()));
+                                params.put("password", et_password.getText().toString());
+                                params.put("street", et_street.getText().toString());
+                                params.put("city", et_city.getText().toString());
+                                params.put("state", et_state.getText().toString());
+                                params.put("zipcode", et_zipcode.getText().toString());
+                                params.put("phone", et_phone.getText().toString());
+                                return params;
+                            }
 
-                    };
+                        };
 
-                    VolleyController.getInstance(getApplicationContext()).addToRequestQueue(rq);
+                        VolleyController.getInstance(getApplicationContext()).addToRequestQueue(rq);
+                    }
+                    else {
+
+                        CustomJSONObjectRequest rq = new CustomJSONObjectRequest(Request.Method.POST, url, null,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            if (response.getString(KEY_SUCCESS) != null) {
+                                                int success = Integer.parseInt(response.getString(KEY_SUCCESS));
+                                                if (success == 1) {
+                                                    Toast.makeText(getApplicationContext(), R.string.registered, Toast.LENGTH_LONG).show();
+                                                    thread.start();
+                                                } else if (success == 0) {
+                                                    Toast.makeText(getApplicationContext(), R.string.email_exists, Toast.LENGTH_LONG).show();
+                                                } else if (success == 2) {
+                                                    Toast.makeText(getApplicationContext(), R.string.username_exists, Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("Response Error", error.toString());
+                                Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                            }
+                        }) {
+
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                HashMap<String, String> headers = new HashMap<String, String>();
+                                headers.put("Content-Type", "application/x-www-form-urlencoded");
+                                return headers;
+                            }
+
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("tag", "register");
+                                params.put("email", et_email.getText().toString());
+                                params.put("username", et_username.getText().toString());
+                                //params.put("password", Utils.md5(et_password.getText().toString()));
+                                params.put("password", et_password.getText().toString());
+                                params.put("street", et_street.getText().toString());
+                                params.put("city", et_city.getText().toString());
+                                params.put("state", et_state.getText().toString());
+                                params.put("zipcode", et_zipcode.getText().toString());
+                                params.put("phone", et_phone.getText().toString());
+                                return params;
+                            }
+
+                        };
+
+                        VolleyController.getInstance(getApplicationContext()).addToRequestQueue(rq);
+                    }
                 }
 
             }

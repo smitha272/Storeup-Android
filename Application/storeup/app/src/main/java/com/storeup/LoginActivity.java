@@ -32,8 +32,10 @@ public class LoginActivity extends AppCompatActivity {
     private EditText et_email;
     private EditText et_password;
     private Button btn_login;
-    private String url = "http://10.0.2.2:3000/loginRegister/login";
     AppSessionManager appSessionManager;
+
+    private String url = "http://10.0.2.2:3000/loginRegister/login";
+    private String adminurl = "http://10.0.2.2:3000/adminloginRegister/login";
 
     private static String KEY_SUCCESS = "success";
     private static String KEY_USERID  = "username";
@@ -62,65 +64,131 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Your password must contain 8-32 character.", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    CustomJSONObjectRequest rq = new CustomJSONObjectRequest(Request.Method.POST, url, null,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    try {
-                                        if (response.getString(KEY_SUCCESS) != null) {
-                                            int success = Integer.parseInt(response.getString(KEY_SUCCESS));
-                                            if (success == 1) {
-                                                System.out.println("\n\nUser id:"+response.getJSONObject("data").getString("user_id")+"\n\n");
-                                                Toast.makeText(getApplicationContext(),response.getJSONObject("data").getString("user_id"), Toast.LENGTH_LONG);
-                                                appSessionManager=new AppSessionManager(getApplicationContext());
+                    String emailId = et_email.getText().toString();
+                    String[] tempString = emailId.split("@");
 
-                                                appSessionManager.createLoginSession(et_email.getText().toString());
-                                                //Intent home = new Intent(LoginActivity.this,LoginActivity.class);
-                                                Intent home = new Intent(LoginActivity.this, MainActivity.class);
-                                                appSessionManager.createUserIdSession(response.getJSONObject("data").getString("user_id"));
-                                                appSessionManager.createUserSession(response.getString(KEY_USERID).toString());
+                    if(tempString[1].equals("walmart.com") || tempString[1].equals("target.com") || tempString[1].equals("costco.com") ){
 
-                                                //home.putExtra(KEY_USERID, response.getString(KEY_USERID));
-                                                startActivity(home);
-                                                finish();
-                                            } else if (success == 0) {
-                                                //Toast.makeText(getApplicationContext(), R.string.invalid_login, Toast.LENGTH_LONG).show();
-                                            } else {
-                                                //Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                        CustomJSONObjectRequest rq = new CustomJSONObjectRequest(Request.Method.POST, adminurl, null,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            if (response.getString(KEY_SUCCESS) != null) {
+                                                int success = Integer.parseInt(response.getString(KEY_SUCCESS));
+                                                if (success == 1) {
+                                                    //System.out.println("\n\nUser id:"+response.getJSONObject("data").getString("user_id")+"\n\n");
+                                                    //Toast.makeText(getApplicationContext(),response.getJSONObject("data").getString("user_id"), Toast.LENGTH_LONG);
+                                                    appSessionManager=new AppSessionManager(getApplicationContext());
+
+                                                    //appSessionManager.createLoginSession(et_email.getText().toString());
+                                                    //Intent home = new Intent(LoginActivity.this,LoginActivity.class);
+                                                    Intent home = new Intent(LoginActivity.this, AdminActivity.class);
+                                                    //appSessionManager.createUserIdSession(response.getJSONObject("data").getString("user_id"));
+                                                    //appSessionManager.createUserSession(response.getString(KEY_USERID).toString());
+
+                                                    //home.putExtra(KEY_USERID, response.getString(KEY_USERID));
+                                                    startActivity(home);
+                                                    finish();
+                                                } else if (success == 0) {
+                                                    //Toast.makeText(getApplicationContext(), R.string.invalid_login, Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    //Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                                                }
                                             }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
                                     }
-                                }
-                            }, new Response.ErrorListener() {
+                                }, new Response.ErrorListener() {
 
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d("Response Error", error.toString());
-                            Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
-                        }
-                    }) {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("Response Error", error.toString());
+                                Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                            }
+                        }) {
 
-                        @Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                            HashMap<String, String> headers = new HashMap<String, String>();
-                            headers.put("Content-Type", "application/x-www-form-urlencoded");
-                            return headers;
-                        }
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                HashMap<String, String> headers = new HashMap<String, String>();
+                                headers.put("Content-Type", "application/x-www-form-urlencoded");
+                                return headers;
+                            }
 
-                        @Override
-                        protected Map<String, String> getParams() {
-                            Map<String, String> params = new HashMap<String, String>();
-                            params.put("tag", "login");
-                            params.put("email", et_email.getText().toString());
-                            params.put("password", et_password.getText().toString());
-                            return params;
-                        }
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("tag", "adminlogin");
+                                params.put("email", et_email.getText().toString());
+                                params.put("password", et_password.getText().toString());
+                                return params;
+                            }
 
-                    };
+                        };
 
-                    VolleyController.getInstance(getApplicationContext()).addToRequestQueue(rq);
+                        VolleyController.getInstance(getApplicationContext()).addToRequestQueue(rq);
+                    }else {
+                        CustomJSONObjectRequest rq = new CustomJSONObjectRequest(Request.Method.POST, url, null,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            if (response.getString(KEY_SUCCESS) != null) {
+                                                int success = Integer.parseInt(response.getString(KEY_SUCCESS));
+                                                if (success == 1) {
+                                                    System.out.println("\n\nUser id:" + response.getJSONObject("data").getString("user_id") + "\n\n");
+                                                    Toast.makeText(getApplicationContext(), response.getJSONObject("data").getString("user_id"), Toast.LENGTH_LONG);
+                                                    appSessionManager = new AppSessionManager(getApplicationContext());
+
+                                                    appSessionManager.createLoginSession(et_email.getText().toString());
+                                                    //Intent home = new Intent(LoginActivity.this,LoginActivity.class);
+                                                    Intent home = new Intent(LoginActivity.this, MainActivity.class);
+                                                    appSessionManager.createUserIdSession(response.getJSONObject("data").getString("user_id"));
+                                                    appSessionManager.createUserSession(response.getString(KEY_USERID).toString());
+
+                                                    //home.putExtra(KEY_USERID, response.getString(KEY_USERID));
+                                                    startActivity(home);
+                                                    finish();
+                                                } else if (success == 0) {
+                                                    //Toast.makeText(getApplicationContext(), R.string.invalid_login, Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    //Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("Response Error", error.toString());
+                                Toast.makeText(getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
+                            }
+                        }) {
+
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                HashMap<String, String> headers = new HashMap<String, String>();
+                                headers.put("Content-Type", "application/x-www-form-urlencoded");
+                                return headers;
+                            }
+
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("tag", "login");
+                                params.put("email", et_email.getText().toString());
+                                params.put("password", et_password.getText().toString());
+                                return params;
+                            }
+
+                        };
+
+                        VolleyController.getInstance(getApplicationContext()).addToRequestQueue(rq);
+                    }
                 }
             }
 

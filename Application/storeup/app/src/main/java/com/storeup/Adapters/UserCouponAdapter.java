@@ -37,8 +37,8 @@ public class UserCouponAdapter extends ArrayAdapter<UserCouponDetails> {
 
         if(!couponsToBeDisplayed.getIsRemainder()) {
             couponName.setText(couponsToBeDisplayed.getStore());
-            couponDesc.setText("Sorry, you haven't scanned enough receipts yet. You need to scan just " + couponsToBeDisplayed.getCount() + " more receipts to win a new "+ couponsToBeDisplayed.getStore() + " coupon!");
-            couponIcon.setVisibility(View.GONE);
+            couponDesc.setText("Sorry, you haven't scanned enough receipts yet. Go to the Scan Receipts section to start scanning receipts!");
+            couponIcon.setImageResource(couponsToBeDisplayed.getCoupon_icon());
             couponCode.setVisibility(View.GONE);
         }
         else {
@@ -53,10 +53,10 @@ public class UserCouponAdapter extends ArrayAdapter<UserCouponDetails> {
                 couponIcon.setImageResource(R.drawable.costco);
             }
             else if(couponsToBeDisplayed.getStore().equals("Walmart")){
-                couponIcon.setImageResource(R.drawable.costco);
+                couponIcon.setImageResource(R.drawable.walmart);
             }
             else if(couponsToBeDisplayed.getStore().equals("Target")){
-                couponIcon.setImageResource(R.drawable.costco);
+                couponIcon.setImageResource(R.drawable.target);
             }
             else {
                 couponIcon.setImageResource(R.drawable.store);

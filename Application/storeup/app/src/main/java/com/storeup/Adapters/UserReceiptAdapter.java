@@ -48,13 +48,13 @@ public class UserReceiptAdapter extends ArrayAdapter<UserReceiptDetails> {
             nameTextView.setText(currentUserReceiptDetails.getStore_name());
             numberTextView.setText(currentUserReceiptDetails.getStore_address());
             new ImageLoader(currentUserReceiptDetails.getDownload_url(), iconView).execute();
-            errorView.setVisibility(View.INVISIBLE);
+            errorView.setVisibility(View.GONE);
         }
         else {
             val = false;
-            nameTextView.setVisibility(View.INVISIBLE);
-            numberTextView.setVisibility(View.INVISIBLE);
-            iconView.setVisibility(View.INVISIBLE);
+            nameTextView.setVisibility(View.GONE);
+            numberTextView.setVisibility(View.GONE);
+            iconView.setVisibility(View.GONE);
             errorView.setText(Html.fromHtml("Sorry you don't have any scanned receipts! Please go to the scan receipts section to scan some."));
         }
         return listItemView;
