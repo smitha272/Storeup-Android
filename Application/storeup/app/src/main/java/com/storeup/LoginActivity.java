@@ -34,8 +34,11 @@ public class LoginActivity extends AppCompatActivity {
     private Button btn_login;
     AppSessionManager appSessionManager;
 
-    private String url = "http://10.0.2.2:3000/loginRegister/login";
-    private String adminurl = "http://10.0.2.2:3000/adminloginRegister/login";
+    /*private String url = "http://10.0.2.2:3000/loginRegister/login";
+    private String adminurl = "http://10.0.2.2:3000/adminloginRegister/login";*/
+
+    private String url = "https://storeup-server.herokuapp.com/loginRegister/login";
+    private String adminurl = "https://storeup-server.herokuapp.com/adminloginRegister/login";
 
     private static String KEY_SUCCESS = "success";
     private static String KEY_USERID  = "username";

@@ -90,7 +90,7 @@ public class UserProfile extends Fragment {
     }
     private void getUserDetails() {
         final String email = appSessionManager.getKeyEmail();
-        final String URL = "http://10.0.2.2:3000/users/userDetails" + "?email=" + email;
+        final String URL = "https://storeup-server.herokuapp.com/users/userDetails" + "?email=" + email;
 
         // pass second argument as "null" for GET requests
 

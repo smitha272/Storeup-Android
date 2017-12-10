@@ -40,7 +40,7 @@ public class ProfileEdit extends Fragment {
     private TextView uZip;
     private TextView uPhone;
     private Button updateProfile;
-    private String url = "http://10.0.2.2:3000/users/updateUserProfile";
+    private String url = "https://storeup-server.herokuapp.com/users/updateUserProfile";
 
 
     public ProfileEdit() {

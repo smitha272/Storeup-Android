@@ -73,7 +73,7 @@ public class UserReceipt extends Fragment {
     private void getUserReceipts(){
         appSessionManager=new AppSessionManager(getActivity().getApplicationContext());
         String email = appSessionManager.getKeyEmail();
-        final String URL = "http://10.0.2.2:3000/users/userReceipts" + "?email=" + email;
+        final String URL = "https://storeup-server.herokuapp.com/users/userReceipts" + "?email=" + email;
 
         CustomJSONObjectRequest req = new CustomJSONObjectRequest(URL, null,
                 new Response.Listener<JSONObject>() {
@@ -86,7 +86,7 @@ public class UserReceipt extends Fragment {
                                 System.out.println("success==1");
                                 JSONArray receiptArray = response.getJSONArray("receipts");
 
-                                for (int i=0;i<receiptArray.length();i++) {
+                                for (int i=0;i<receiptArray.length()/2;i++) {
                                     JSONObject eachReceipt = receiptArray.getJSONObject(i);
                                     if(eachReceipt.getString("latitude").equals("0") && eachReceipt.getString("longitude").equals("0")){
                                         userReceiptDetailses.add(new UserReceiptDetails(eachReceipt.getString("store_name"), eachReceipt.getString("store_address"), eachReceipt.getString("download_url")));
