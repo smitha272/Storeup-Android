@@ -41,7 +41,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/upload_fab"
         android:layout_marginEnd="21dp"
-        android:src="@drawable/ic_camera_enhance_white_24dp"
+        android:src="@drawable/ic_camera_enhance_black_24dp"
         app:fabSize="normal" />
 
     <android.support.design.widget.FloatingActionButton
@@ -51,7 +51,7 @@
         android:layout_alignStart="@+id/linearLayoutImgView"
         android:layout_below="@+id/linearLayoutImgView"
         android:layout_marginTop="32dp"
-        android:src="@drawable/ic_backup_white_24dp"
+        android:src="@drawable/ic_backup_black_24dp"
         app:fabSize="normal" />
 
 </RelativeLayout>
