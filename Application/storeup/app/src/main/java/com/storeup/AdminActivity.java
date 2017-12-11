@@ -31,7 +31,6 @@ public class AdminActivity extends AppCompatActivity {
     private Button logout;
     private Button submit;
     ArrayList<String> list = new ArrayList<String>();
-//    private ArrayList<AdminAnalyticsDetails> list = new ArrayList<AdminAnalyticsDetails>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,28 +57,21 @@ public class AdminActivity extends AppCompatActivity {
 
                 String storeName = store_name.getText().toString();
                 String cityName = city_name.getText().toString();
-                //http://5846595a.ngrok.io/getRecommendations?store=walmart&city=san%20jose
-                //http://84c49c6b.ngrok.io/getRecommendations?store=walmart&city=san%20jose
-                String URL = "http://361e94e7.ngrok.io/getRecommendations?store="+storeName+"&city="+cityName;
+                String URL = "http://3b8fd6c8.ngrok.io/getRecommendations?store="+storeName+"&city="+cityName;
                 System.out.println("Reached 1111"+storeName+" "+cityName);
 
                 CustomJSONObjectRequest req = new CustomJSONObjectRequest(URL, null,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
                                 if(response.length()==0 || response==null){
                                     Toast.makeText(getApplicationContext(), "There are No suggestions for this location", Toast.LENGTH_SHORT).show();
                                 }else {
                                     try {
-                                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
                                         ArrayList<ArrayList<String>> arr=new ArrayList<>();
                                         Iterator iter = response.keys();
                                         String key = null;
                                         while (iter.hasNext()) {
-
-
-
                                             key = (String) iter.next();
 //                                            list.add(new AdminAnalyticsDetails(key,response.getString(key)));
                                             list.add(key);
@@ -89,12 +81,12 @@ public class AdminActivity extends AppCompatActivity {
 
                                         Intent home = new Intent(AdminActivity.this, AdminAnalytics.class);
                                         home.putExtra("Latitude",key);
-                                        System.out.println("Check irt: "+ response.getString(key));
+//                                        home.putStringArrayListExtra("List", arr);
+                                        home.putExtra("jsonObj", response.toString());
                                         home.putExtra("Long",response.getString(key));
                                         startActivity(home);
 
                                         System.out.println("The array is: "+arr);
-                                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -105,7 +97,6 @@ public class AdminActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Response Error", error.toString());
-                        //Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
                     }
                 });
                 req.setRetryPolicy(new DefaultRetryPolicy(

@@ -21,8 +21,10 @@ def getRecommendations():
                                       host='cmpe275.cgy1wsewzyvd.us-west-1.rds.amazonaws.com',
                                       database='storeup')
         connection = cnx.cursor()
-        query = ("SELECT user_details.latitude as lat, user_details.longitude as lng from storeup.user_details, storeup.receipt_details " 
-                "where receipt_details.user_name = user_details.email and receipt_details.store_name = %s and user_details.city = %s")
+        #query = ("SELECT user_details.latitude as lat, user_details.longitude as lng from storeup.user_details, storeup.receipt_details "
+               # "where receipt_details.user_name = user_details.email and receipt_details.store_name = %s and user_details.city = %s")
+        query = ("SELECT lat,lng FROM storeup.test_data_ML where test_data_ML.store= %s and test_data_ML.city=%s")
+        print(query)
         connection.execute(query,(store,city))
         if connection.rowcount == 0:
             print("No results found")
@@ -51,6 +53,7 @@ def getRecommendations():
 
     # create new plot and data
     if len(x1) == 0 or len(x2) == 0:
+        print("No Users Exist for this Supermarket in the requested location")
         return {}
     plt.plot()
     X = np.array(list(zip(x1, x2))).reshape(len(x1), 2)
@@ -70,7 +73,7 @@ def getRecommendations():
     for center in centers:
         radiusCheck = "https://maps.googleapis.com/maps/api/place/radarsearch/json?location=" \
                       + str(center[0]) + "," + str(center[1]) + \
-                      "&radius=500&type=grocery_or_supermarket&keyword=" + store + "&key=AIzaSyBUt6J8i7uZm7ofoVxH1yoXkFhvgdzMJwg"
+                      "&radius=300&type=grocery_or_supermarket&keyword=" + store + "&key=AIzaSyBUt6J8i7uZm7ofoVxH1yoXkFhvgdzMJwg"
         r.update(json.loads(requests.get(radiusCheck).content))
         for key, value in r.items():
             if key == 'status':

@@ -2,6 +2,7 @@ package com.storeup;
 
 
 import android.app.FragmentManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
@@ -62,6 +63,7 @@ public class HomePage extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Home");
+        getActivity().setTitleColor(Color.BLACK);
         getHomeDetails();
         list_view=(ListView)view.findViewById(R.id.storesCount);
         list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
