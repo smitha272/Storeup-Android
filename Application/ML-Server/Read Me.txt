@@ -1,0 +1,5 @@
+Step 1: 
+Run the Command "pip install -r requirements.txt" in the project directory 
+
+Step 2: 
+Run the Recommendations-Module using the command "python Recommendations-Module.py"
