@@ -64,12 +64,10 @@ public class AdminActivity extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
                                 if(response.length()==0 || response==null){
                                     Toast.makeText(getApplicationContext(), "There are No suggestions for this location", Toast.LENGTH_SHORT).show();
                                 }else {
                                     try {
-                                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
                                         ArrayList<ArrayList<String>> arr=new ArrayList<>();
                                         Iterator iter = response.keys();
                                         String key = null;
@@ -89,7 +87,6 @@ public class AdminActivity extends AppCompatActivity {
                                         startActivity(home);
 
                                         System.out.println("The array is: "+arr);
-//                                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -100,7 +97,6 @@ public class AdminActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Response Error", error.toString());
-                        //Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_post, Toast.LENGTH_LONG).show();
                     }
                 });
                 req.setRetryPolicy(new DefaultRetryPolicy(

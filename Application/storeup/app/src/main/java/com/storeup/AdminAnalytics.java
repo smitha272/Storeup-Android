@@ -48,7 +48,7 @@ public class AdminAnalytics extends AppCompatActivity implements OnMapReadyCallb
             e.printStackTrace();
         }
         if (js.length() == 0 || js == null) {
-            Toast.makeText(getApplicationContext(), "There are No suggestions for this location", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "There are no suggestions for this location", Toast.LENGTH_SHORT).show();
         } else {
             try {
                 Iterator iter = js.keys();
