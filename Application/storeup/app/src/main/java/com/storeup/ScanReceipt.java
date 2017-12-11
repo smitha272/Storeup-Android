@@ -59,7 +59,8 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
     TextView test;
     String s;
     private static String KEY_SUCCESS = "success";
-    private String url = "http://10.0.2.2:3000/ocr/getImageOcr";
+    /*private String url = "http://10.0.2.2:3000/ocr/getImageOcr";*/
+    private String url = "https://storeup-server.herokuapp.com/ocr/getImageOcr";
     private String userChoosenTask;
     private int REQUEST_CAMERA = 1;
     private int UPLOAD_FLAG = 0;
@@ -214,12 +215,12 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
             imageName = UUID.randomUUID().toString();
             if(UPLOAD_FLAG == 1) {
                 uploadRef = storageReference.child("images/" + imageName);
-                Toast.makeText(getActivity().getApplicationContext(), "Storage Uri: " + arr[arr.length - 1], Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity().getApplicationContext(), "Storage Uri: " + arr[arr.length - 1], Toast.LENGTH_LONG).show();
             } else if (UPLOAD_FLAG == 0) {
                 Random random = new Random();
                 int key =random.nextInt(1000);
                 uploadRef = storageReference.child("images/" +imageName );
-                Toast.makeText(getActivity().getApplicationContext(), "Storage Uri: " + "pic" + key, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity().getApplicationContext(), "Storage Uri: " + "pic" + key, Toast.LENGTH_LONG).show();
             }
             uploadRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -231,7 +232,7 @@ public class ScanReceipt extends Fragment implements View.OnClickListener{
                             //and displaying a success toast
                             @SuppressWarnings("VisibleForTests")StorageReference downloadUri = taskSnapshot.getStorage();
                             @SuppressWarnings("VisibleForTests")final String downloadUrl = taskSnapshot.getDownloadUrl().toString();
-                            Toast.makeText(getActivity().getApplicationContext(), "File Uploaded "+downloadUri.toString(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getActivity().getApplicationContext(), "File Uploaded "+downloadUri.toString(), Toast.LENGTH_LONG).show();
 
 
 

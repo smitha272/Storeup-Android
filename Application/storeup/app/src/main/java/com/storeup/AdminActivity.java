@@ -14,6 +14,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.storeup.Entity.AdminAnalyticsDetails;
 import com.storeup.Extras.CustomJSONObjectRequest;
 import com.storeup.Extras.VolleyController;
 
@@ -29,6 +30,8 @@ public class AdminActivity extends AppCompatActivity {
     private EditText store_name;
     private Button logout;
     private Button submit;
+    ArrayList<String> list = new ArrayList<String>();
+//    private ArrayList<AdminAnalyticsDetails> list = new ArrayList<AdminAnalyticsDetails>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,7 @@ public class AdminActivity extends AppCompatActivity {
                 String cityName = city_name.getText().toString();
                 //http://5846595a.ngrok.io/getRecommendations?store=walmart&city=san%20jose
                 //http://84c49c6b.ngrok.io/getRecommendations?store=walmart&city=san%20jose
-                String URL = "http://84c49c6b.ngrok.io/getRecommendations?store="+storeName+"&city="+cityName;
+                String URL = "http://361e94e7.ngrok.io/getRecommendations?store="+storeName+"&city="+cityName;
                 System.out.println("Reached 1111"+storeName+" "+cityName);
 
                 CustomJSONObjectRequest req = new CustomJSONObjectRequest(URL, null,
@@ -72,17 +75,22 @@ public class AdminActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
                                         ArrayList<ArrayList<String>> arr=new ArrayList<>();
                                         Iterator iter = response.keys();
+                                        String key = null;
                                         while (iter.hasNext()) {
 
 
-                                            ArrayList<String> list = new ArrayList<String>();
-                                            String key = (String) iter.next();
+
+                                            key = (String) iter.next();
+//                                            list.add(new AdminAnalyticsDetails(key,response.getString(key)));
                                             list.add(key);
                                             list.add(response.getString(key));
                                             arr.add(list);
                                         }
+
                                         Intent home = new Intent(AdminActivity.this, AdminAnalytics.class);
-                                        home.putExtra("suggestionList",arr);
+                                        home.putExtra("Latitude",key);
+                                        System.out.println("Check irt: "+ response.getString(key));
+                                        home.putExtra("Long",response.getString(key));
                                         startActivity(home);
 
                                         System.out.println("The array is: "+arr);

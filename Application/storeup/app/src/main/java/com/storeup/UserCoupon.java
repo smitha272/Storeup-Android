@@ -48,7 +48,7 @@ public class UserCoupon extends Fragment {
     private void getUserReceipts(){
         appSessionManager=new AppSessionManager(getActivity().getApplicationContext());
         String email = appSessionManager.getKeyEmail();
-        final String URL = "http://10.0.2.2:3000/coupons/getCoupon" + "?email=" + email;
+        final String URL = "https://storeup-server.herokuapp.com/coupons/getCoupon" + "?email=" + email;
 
         CustomJSONObjectRequest req = new CustomJSONObjectRequest(URL, null,
                 new Response.Listener<JSONObject>() {
